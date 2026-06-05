@@ -1,30 +1,86 @@
 @page "{id}"
 @model dr24CoreNet.WebUI.Pages.ChatModel
 @{
-    ViewData["Title"] = "مشاوره آنلاین";
+    ViewData["Title"] = "مشاوره آنلاین مستقیم";
 }
 
 <div class="container">
-    <div class="card mb-6" style="padding: 1rem;">
-        <div class="flex justify-between items-center">
-            <div class="flex items-center gap-3">
-                <div style="width:12px; height:12px; border-radius:50%; background:#22c55e;"></div>
-                <h2 style="font-size:1rem;">مشاوره فعال با دکتر علی احمدی</h2>
+    <div class="grid grid-cols-1 lg:grid-cols-4 gap-6" style="height: calc(100vh - 200px);">
+        <!-- Left Panel: Chat List -->
+        <div class="hidden lg:flex flex-col gap-4">
+            <h2 class="text-lg font-bold">مشاوره‌های اخیر</h2>
+            <div class="space-y-3">
+                <div class="card p-4 border-primary-blue bg-blue-50/50 cursor-pointer border-r-4">
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-full bg-primary-blue text-white flex items-center justify-center font-bold">A</div>
+                        <div>
+                            <p class="text-sm font-bold text-slate-900">دکتر علی احمدی</p>
+                            <p class="text-[10px] text-primary-blue font-bold">گفتگوی فعال</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="card p-4 hover:bg-slate-50 cursor-pointer transition">
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-full bg-slate-200 text-slate-600 flex items-center justify-center font-bold">S</div>
+                        <div>
+                            <p class="text-sm font-bold text-slate-700">دکتر سارا رضایی</p>
+                            <p class="text-[10px] text-slate-400">بسته شده (۱ ماه پیش)</p>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <span class="text-muted" style="font-size:0.75rem;">شناسه نوبت: #@RouteData.Values["id"]</span>
-        </div>
-    </div>
-
-    <div class="card" style="padding: 0; overflow: hidden;">
-        <div class="chat-window bg-slate-50 dark:bg-slate-900/50" id="chat">
-            <div class="bubble bubble-in">سلام. خسته نباشید. چطور می‌تونم کمکتون کنم؟</div>
-            <div class="bubble bubble-out">سلام آقای دکتر. بابت جواب آزمایش مزاحمتون شدم.</div>
-            <div class="bubble bubble-in">خواهش می‌کنم. لطفاً فایل رو ارسال کنید یا مقادیر TSH رو بگید.</div>
         </div>
 
-        <div class="p-4 border-t flex gap-4">
-            <input type="text" placeholder="پیام خود را بنویسید..." id="msg" />
-            <button class="btn btn-primary px-10" onclick="send()">ارسال</button>
+        <!-- Right Panel: Main Chat window -->
+        <div class="lg:col-span-3 flex flex-col card overflow-hidden shadow-lg border-slate-100">
+            <!-- Chat Header -->
+            <div class="p-4 border-b border-slate-100 flex justify-between items-center bg-slate-50/50">
+                <div class="flex items-center gap-3">
+                    <div class="relative">
+                        <div class="w-12 h-12 rounded-full bg-slate-100 border-2 border-white flex items-center justify-center text-xl font-bold">A</div>
+                        <div class="absolute bottom-0 right-0 w-3 h-3 bg-green-500 rounded-full border-2 border-white"></div>
+                    </div>
+                    <div>
+                        <h2 class="text-base font-bold text-slate-900">دکتر علی احمدی</h2>
+                        <p class="text-[10px] font-bold text-green-600 uppercase tracking-widest">در دسترس / آنلاین</p>
+                    </div>
+                </div>
+                <span class="text-xs text-slate-400">نوبت شماره #@RouteData.Values["id"]</span>
+            </div>
+
+            <!-- Messages Area -->
+            <div class="flex-grow chat-window bg-white dark:bg-slate-900/40 p-6" id="chat">
+                <div class="bubble bubble-in shadow-sm text-sm">
+                    سلام جناب کریمی. وقت شما بخیر. مدارک پزشکی که آپلود کرده بودید رو بررسی کردم.
+                </div>
+                <div class="bubble bubble-out shadow-sm text-sm">
+                    سلام آقای دکتر، خسته نباشید. ممنون از بررسی شما. آیا نیاز به آزمایش مجدد هست؟
+                </div>
+                <div class="bubble bubble-in shadow-sm text-sm">
+                    خیر، فعلاً نیازی نیست. من یک نسخه دارویی برای شما در سیستم ثبت می‌کنم.
+                </div>
+            </div>
+
+            <!-- Input Area -->
+            <div class="p-4 border-t border-slate-100 bg-white">
+                <div class="flex gap-4">
+                    <input type="text" placeholder="پیام خود را اینجا بنویسید..." class="input-modern bg-slate-50 border-transparent focus:bg-white transition" id="msg" />
+                    <button class="btn btn-primary px-8 shadow-sm" onclick="send()">ارسال پیام</button>
+                </div>
+            </div>
+
+            <!-- Prescription Form (Collapsible Mockup) -->
+            <div class="p-6 bg-slate-50 border-t border-slate-100">
+                <h3 class="text-sm font-bold mb-4 flex items-center gap-2">
+                    <svg class="w-5 h-5 text-primary-blue" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+                    ثبت اقلام نسخه الکترونیک (مخصوص پزشک)
+                </h3>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <input type="text" placeholder="نام دارو (پراستامول...)" class="text-xs" />
+                    <input type="text" placeholder="دوز و تعداد (۵۰۰...)" class="text-xs" />
+                    <button class="btn btn-primary text-xs">+ افزودن به نسخه</button>
+                </div>
+            </div>
         </div>
     </div>
 </div>
@@ -36,7 +92,7 @@
             if(!input.value) return;
             const chat = document.getElementById('chat');
             const div = document.createElement('div');
-            div.className = 'bubble bubble-out';
+            div.className = 'bubble bubble-out shadow-sm text-sm';
             div.innerText = input.value;
             chat.appendChild(div);
             input.value = '';

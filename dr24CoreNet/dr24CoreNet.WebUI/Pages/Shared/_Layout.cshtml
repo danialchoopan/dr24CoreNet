@@ -9,29 +9,34 @@
 <body>
     <nav>
         <div class="container nav-content">
-            <div class="flex items-center gap-8">
-                <a asp-page="/Index" class="nav-link" style="font-size: 1.5rem; font-weight: 900; color: var(--primary);">dr24CoreNet</a>
+            <a asp-page="/Index" class="logo">dr24CoreNet</a>
+
+            <div class="flex items-center gap-6">
                 <div class="nav-links">
                     <a asp-page="/Index" class="nav-link">جستجوی پزشک</a>
                     <a asp-page="/Patient/History" class="nav-link">پرونده من</a>
                     <a asp-page="/Doctor/Dashboard" class="nav-link">پنل پزشک</a>
-                    <a asp-page="/Admin/Analytics" class="nav-link">مدیریت کل</a>
+                    <a asp-page="/Admin/Analytics" class="nav-link">پنل مدیریت</a>
                 </div>
-            </div>
-            <div class="flex items-center gap-4">
-                <a asp-page="/Admin/Audit" class="nav-link text-sm">Audit Trail</a>
-                <button onclick="toggleTheme()" class="btn btn-outline" style="padding: 0.5rem;">🌓</button>
+
+                <div class="flex items-center gap-4 border-r pr-6 border-slate-200">
+                    <button onclick="toggleTheme()" class="btn btn-slate" style="border-radius: 9999px; padding: 0.5rem;">🌓</button>
+                    <div class="flex flex-col items-end">
+                        <span class="text-xs font-bold text-slate-900">جواد کریمی</span>
+                        <a href="#" class="text-xs text-red-500 hover:text-red-700 font-medium">خروج</a>
+                    </div>
+                </div>
             </div>
         </div>
     </nav>
 
-    <main role="main" class="mt-8">
+    <main role="main" class="mt-8 pb-12">
         @RenderBody()
     </main>
 
-    <footer class="mt-8 py-8 border-t" style="background: var(--card-bg);">
+    <footer class="py-8 border-t bg-white dark:bg-slate-900">
         <div class="container text-center">
-            <p class="text-muted">© ۲۰۲۴ پلتفرم نوبت‌دهی dr24CoreNet. تمامی حقوق محفوظ است.</p>
+            <p class="text-xs text-slate-500">© ۲۰۲۶ - پلتفرم نوبت‌دهی dr24CoreNet - تمامی حقوق محفوظ است.</p>
         </div>
     </footer>
 
