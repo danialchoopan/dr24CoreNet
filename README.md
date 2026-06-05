@@ -68,16 +68,16 @@ dotnet run --project dr24CoreNet.WebUI
 در این بخش نمایی از سیستم در حالت عملیاتی با داده‌های واقعی (Seeded Data) و فونت وزیر (Vazirmatn) نمایش داده شده است.
 
 ### ۱. صفحه جستجو و فیلتر پزشکان متخصص
-![جستجوی پزشکان متخصص](./screenshots/search_doctors.png)
+![جستجوی پزشکان متخصص](screenshots/search_doctors.png)
 
 ### ۲. فرآیند رزرو نوبت و شمارش معکوس قفل همزمانی
-![رزرو نوبت و همزمانی](./screenshots/booking_countdown.png)
+![رزرو نوبت و همزمانی](screenshots/booking_countdown.png)
 
 ### ۳. داشبورد مدیریت مالی و تحلیل درآمدهای پلتفرم
-![داشبورد تحلیل مالی](./screenshots/enterprise_analytics.png)
+![داشبورد تحلیل مالی](screenshots/enterprise_analytics.png)
 
 ### ۴. ردیابی امنیتی عملیات (Audit Trail) و پرونده سلامت
-![ردیابی عملیات و پرونده سلامت](./screenshots/medical_audit_trail.png)
+![ردیابی عملیات و پرونده سلامت](screenshots/medical_audit_trail.png)
 
 ---
 

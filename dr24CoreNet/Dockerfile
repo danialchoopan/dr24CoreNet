@@ -3,7 +3,7 @@ FROM mcr.microsoft.com/dotnet/sdk:10.0 AS build
 WORKDIR /src
 
 # Copy all projects
-COPY ["dr24CoreNet.sln", "./"]
+COPY ["dr24CoreNet.slnx", "./"]
 COPY ["dr24CoreNet.Domain/dr24CoreNet.Domain.csproj", "dr24CoreNet.Domain/"]
 COPY ["dr24CoreNet.Application/dr24CoreNet.Application.csproj", "dr24CoreNet.Application/"]
 COPY ["dr24CoreNet.Infrastructure/dr24CoreNet.Infrastructure.csproj", "dr24CoreNet.Infrastructure/"]
