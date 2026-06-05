@@ -86,17 +86,35 @@
 </div>
 
 @section Scripts {
+    <script src="~/lib/signalr.min.js"></script>
     <script>
+        const appointmentId = "@RouteData.Values["id"]";
+        const connection = new signalR.HubConnectionBuilder()
+            .withUrl("http://localhost:5000/chatHub") // API URL
+            .build();
+
+        connection.on("ReceiveMessage", (user, message) => {
+            const chat = document.getElementById('chat');
+            const div = document.createElement('div');
+            const isMe = user === "Patient"; // Mock check
+            div.className = `bubble ${isMe ? 'bubble-out' : 'bubble-in'} shadow-sm text-sm`;
+            div.innerText = message;
+            chat.appendChild(div);
+            chat.scrollTop = chat.scrollHeight;
+        });
+
+        connection.start().then(() => {
+            connection.invoke("JoinChat", appointmentId);
+        }).catch(err => console.error(err));
+
         function send() {
             const input = document.getElementById('msg');
             if(!input.value) return;
-            const chat = document.getElementById('chat');
-            const div = document.createElement('div');
-            div.className = 'bubble bubble-out shadow-sm text-sm';
-            div.innerText = input.value;
-            chat.appendChild(div);
+
+            connection.invoke("SendMessage", appointmentId, "Patient", input.value)
+                .catch(err => console.error(err));
+
             input.value = '';
-            chat.scrollTop = chat.scrollHeight;
         }
     </script>
 }

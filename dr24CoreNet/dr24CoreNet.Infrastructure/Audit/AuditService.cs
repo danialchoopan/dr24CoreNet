@@ -1,10 +1,11 @@
 using System.Text.Json;
+using dr24CoreNet.Application.Interfaces;
 using dr24CoreNet.Domain.Entities;
 using dr24CoreNet.Infrastructure.Persistence;
 
 namespace dr24CoreNet.Infrastructure.Audit;
 
-public class AuditService
+public class AuditService : IAuditService
 {
     private readonly AppDbContext _context;
 

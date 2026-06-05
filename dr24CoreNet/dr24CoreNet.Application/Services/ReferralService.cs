@@ -12,14 +12,14 @@ public class ReferralService
         _unitOfWork = unitOfWork;
     }
 
-    public async Task<string> CreateReferralAsync(int sourceDoctorId, int targetDoctorId, int patientId)
+    public async Task<string> CreateReferralAsync(int sourceDoctorId, int targetSpecializationId, int patientId, string notes)
     {
         var token = Guid.NewGuid().ToString("N").Substring(0, 10).ToUpper();
         var referral = new DoctorReferral
         {
             ReferralToken = token,
             SourceDoctorId = sourceDoctorId,
-            TargetDoctorId = targetDoctorId,
+            TargetDoctorId = 0, // Assigned when patient picks a doctor
             PatientId = patientId,
             CreatedAt = DateTime.UtcNow,
             ExpiresAt = DateTime.UtcNow.AddDays(30),
@@ -27,8 +27,14 @@ public class ReferralService
         };
 
         // In a real system, we'd add DoctorReferrals to Unit of Work
-        // For this phase, we assume the generic repository handles it
-        await Task.CompletedTask; // Placeholder for context registration
+        await Task.CompletedTask;
         return token;
+    }
+
+    public async Task<DoctorReferral?> ValidateReferralAsync(string token)
+    {
+        // Mock validation for enterprise flow
+        await Task.CompletedTask;
+        return new DoctorReferral { ReferralToken = token, IsUsed = false, ExpiresAt = DateTime.UtcNow.AddDays(1) };
     }
 }
