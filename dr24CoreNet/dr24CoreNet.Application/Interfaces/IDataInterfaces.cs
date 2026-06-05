@@ -32,5 +32,8 @@ public interface IUnitOfWork : IDisposable
     IAppointmentRepository Appointments { get; }
     IRepository<dr24CoreNet.Domain.Entities.Wallet> Wallets { get; }
     IRepository<dr24CoreNet.Domain.Entities.Prescription> Prescriptions { get; }
+    IRepository<PlatformFinances> PlatformFinances { get; }
+    IRepository<DoctorAccount> DoctorAccounts { get; }
+    IRepository<MedicalAuditLog> AuditLogs { get; }
     Task<int> SaveChangesAsync();
 }

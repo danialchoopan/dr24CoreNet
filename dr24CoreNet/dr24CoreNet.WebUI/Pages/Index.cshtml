@@ -1,119 +1,70 @@
 @page
-@model IndexModel
+@model dr24CoreNet.WebUI.Pages.IndexModel
 @{
-    ViewData["Title"] = "جستجوی پیشرفته پزشکان";
+    ViewData["Title"] = "صفحه اصلی";
 }
 
-<div class="container">
-    <div id="bookingTimer" class="hidden bg-red-600 text-white p-4 rounded-xl mb-8 text-center font-bold shadow-lg animate-pulse">
-        ⏳ زمان باقی‌مانده برای تکمیل رزرو: 10:00
-    </div>
+<div class="main-content" style="margin-right: 0;">
+    <div class="max-w-6xl mx-auto">
+        <!-- Hero Section -->
+        <div class="text-center py-16">
+            <h1 class="text-4xl font-extrabold text-slate-900 mb-4">پلتفرم هوشمند نوبت‌دهی dr24CoreNet</h1>
+            <p class="text-lg text-slate-600 mb-8">سریع‌ترین راه برای رزرو نوبت از بهترین متخصصین کشور</p>
 
-    <div class="mb-12">
-        <h1 class="text-3xl font-extrabold text-slate-900 mb-2">پلتفرم نوبت‌دهی dr24CoreNet</h1>
-        <p class="text-slate-600">انتخاب هوشمند پزشک، رزرو نوبت در کمتر از یک دقیقه</p>
-    </div>
-
-    <div class="card p-8 rounded-xl shadow-lg border-slate-100 mb-12">
-        <div class="flex items-center gap-4 mb-6">
-            <svg class="w-6 h-6 text-primary-blue" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
-            <h2 class="text-xl font-bold">جستجوی پیشرفته پزشکان</h2>
+            <div class="flex justify-center gap-4">
+                <a href="/Search" class="btn-primary">جستجوی پزشک</a>
+                <a href="/Admin/Dashboard" class="px-6 py-3 border border-slate-200 rounded-lg font-bold hover:bg-slate-50 transition">پنل مدیریت</a>
+            </div>
         </div>
-        <form class="grid grid-cols-1 md:grid-cols-3 gap-6 items-end">
-            <div class="flex flex-col gap-2">
-                <label class="text-sm font-medium text-slate-600">نام پزشک یا تخصص</label>
-                <input type="text" placeholder="مثلاً: قلب و عروق، دندانپزشکی..." class="input-modern" />
-            </div>
-            <div class="flex flex-col gap-2">
-                <label class="text-sm font-medium text-slate-600">فیلتر شهر</label>
-                <select class="input-modern">
-                    <option>همه شهرها</option>
-                    <option>تهران</option>
-                    <option>اصفهان</option>
-                    <option>مشهد</option>
-                </select>
-            </div>
-            <button type="button" class="btn btn-primary text-lg h-12 shadow-sm">جستجو و فیلتر پزشکان</button>
-        </form>
-    </div>
 
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-        <!-- Doctor Card 1 -->
-        <div class="card p-6 rounded-xl shadow-sm border-slate-100 hover:shadow-lg transition duration-300">
-            <div class="flex items-center gap-4 mb-6">
-                <div class="w-20 h-20 rounded-full bg-slate-100 border-2 border-primary-blue flex items-center justify-center text-3xl font-extrabold text-primary-blue">A</div>
-                <div class="flex flex-col">
-                    <h3 class="text-xl font-bold text-slate-900">دکتر علی احمدی</h3>
-                    <span class="text-primary-blue font-medium text-sm">فوق تخصص قلب و عروق</span>
+        <!-- KPI Cards -->
+        <div class="grid-cols-dashboard mb-12">
+            <div class="card p-6 flex items-center gap-4">
+                <div class="w-12 h-12 rounded-full bg-blue-100 flex items-center justify-center">
+                    <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>
+                </div>
+                <div>
+                    <p class="text-sm text-slate-500">پزشکان فعال</p>
+                    <p class="text-xl font-bold">۱,۲۴۰</p>
                 </div>
             </div>
-            <div class="space-y-3 mb-8 border-b border-slate-100 pb-6">
-                <div class="flex justify-between text-sm">
-                    <span class="text-slate-500">کد نظام پزشکی:</span>
-                    <span class="font-bold text-slate-700">۱۲۳۴۵</span>
+            <div class="card p-6 flex items-center gap-4">
+                <div class="w-12 h-12 rounded-full bg-green-100 flex items-center justify-center">
+                    <svg class="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path></svg>
                 </div>
-                <div class="flex justify-between text-sm">
-                    <span class="text-slate-500">محل فعالیت:</span>
-                    <span class="font-bold text-slate-700">تهران، بیمارستان پارس</span>
+                <div>
+                    <p class="text-sm text-slate-500">نوبت‌های موفق</p>
+                    <p class="text-xl font-bold">۴۵,۸۰۰</p>
                 </div>
             </div>
-            <div class="mb-4">
-                <h4 class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-4">نوبت‌های در دسترس امروز:</h4>
-                <div class="grid grid-cols-3 gap-2">
-                    <button onclick="bookSlot(1)" class="btn slot-token text-xs py-2">۰۹:۰۰</button>
-                    <button onclick="bookSlot(2)" class="btn slot-token text-xs py-2">۰۹:۳۰</button>
-                    <button onclick="bookSlot(3)" class="btn slot-token text-xs py-2">۱۰:۰۰</button>
+            <div class="card p-6 flex items-center gap-4">
+                <div class="w-12 h-12 rounded-full bg-purple-100 flex items-center justify-center">
+                    <svg class="w-6 h-6 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                </div>
+                <div>
+                    <p class="text-sm text-slate-500">صرفه‌جویی مالی</p>
+                    <p class="text-xl font-bold">۱.۲ میلیارد</p>
                 </div>
             </div>
         </div>
 
-        <!-- Doctor Card 2 -->
-        <div class="card p-6 rounded-xl shadow-sm border-slate-100 hover:shadow-lg transition duration-300">
-            <div class="flex items-center gap-4 mb-6">
-                <div class="w-20 h-20 rounded-full bg-slate-100 border-2 border-red-500 flex items-center justify-center text-3xl font-extrabold text-red-500">S</div>
-                <div class="flex flex-col">
-                    <h3 class="text-xl font-bold text-slate-900">دکتر سارا رضایی</h3>
-                    <span class="text-primary-blue font-medium text-sm">متخصص پوست و مو</span>
+        <!-- Featured Section -->
+        <div class="card p-8 border-none shadow-sm bg-gradient-to-r from-blue-600 to-blue-700 text-white">
+            <h2 class="text-2xl font-bold mb-4">چرا dr24CoreNet؟</h2>
+            <div class="grid md:grid-cols-3 gap-8">
+                <div>
+                    <h3 class="font-bold mb-2">سرعت بالا</h3>
+                    <p class="text-blue-100 text-sm">رزرو نوبت در کمتر از ۳۰ ثانیه با سیستم بهینه‌سازی شده ککشینگ.</p>
                 </div>
-            </div>
-            <div class="space-y-3 mb-8 border-b border-slate-100 pb-6">
-                <div class="flex justify-between text-sm">
-                    <span class="text-slate-500">کد نظام پزشکی:</span>
-                    <span class="font-bold text-slate-700">۵۴۳۲۱</span>
+                <div>
+                    <h3 class="font-bold mb-2">امنیت داده‌ها</h3>
+                    <p class="text-blue-100 text-sm">تمامی سوابق پزشکی با استاندارد HIPAA و سیستم لاگینگ Audit ذخیره می‌شوند.</p>
                 </div>
-                <div class="flex justify-between text-sm">
-                    <span class="text-slate-500">محل فعالیت:</span>
-                    <span class="font-bold text-slate-700">اصفهان، مجتمع تخصصی سپاهان</span>
-                </div>
-            </div>
-            <div class="mb-4">
-                <h4 class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-4">نوبت‌های در دسترس امروز:</h4>
-                <div class="grid grid-cols-3 gap-2">
-                    <button class="btn slot-booked text-xs py-2" disabled>رزرو شده</button>
-                    <button onclick="bookSlot(5)" class="btn slot-token text-xs py-2">۱۶:۴۵</button>
-                    <button class="btn slot-booked text-xs py-2" disabled>رزرو شده</button>
+                <div>
+                    <h3 class="font-bold mb-2">شفافیت مالی</h3>
+                    <p class="text-blue-100 text-sm">سیستم هوشمند ارجاع و محاسبه خودکار کارمزد بدون خطای انسانی.</p>
                 </div>
             </div>
         </div>
     </div>
 </div>
-
-@section Scripts {
-    <script>
-        async function bookSlot(slotId) {
-            if(!confirm('آیا از رزرو موقت این نوبت اطمینان دارید؟ (۱۰ دقیقه فرصت برای پرداخت)')) return;
-            startBookingTimer(600);
-        }
-
-        function startBookingTimer(duration) {
-            let timer = duration;
-            const display = document.getElementById('bookingTimer');
-            display.classList.remove('hidden');
-            const interval = setInterval(() => {
-                let m = Math.floor(timer / 60), s = timer % 60;
-                display.innerText = `⏳ زمان باقی‌مانده برای تکمیل رزرو: ${m}:${s < 10 ? '0' : ''}${s}`;
-                if (--timer < 0) { clearInterval(interval); location.reload(); }
-            }, 1000);
-        }
-    </script>
-}
