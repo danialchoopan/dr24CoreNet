@@ -77,6 +77,12 @@ button {
     padding: 0.5rem 1rem;
     border-radius: 0.375rem;
     font-weight: 600;
+    transition: outline 0.1s ease-in-out;
+}
+
+button:focus-visible {
+    outline: 3px solid var(--tw-primary);
+    outline-offset: 2px;
 }
 
 .chat-container { height: 400px; overflow-y: auto; display: flex; flex-direction: column; gap: 0.5rem; }
