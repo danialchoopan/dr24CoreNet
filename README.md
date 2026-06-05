@@ -14,30 +14,41 @@
 ۳. موتور ارجاع هوشمند بین‌پزشکی با توکن‌های دیجیتال اولویت‌دار.
 ۴. داشبورد تحلیل هوشمند با استفاده از Materialized Views شبیه‌سازی شده برای عملکرد بهینه در داده‌های حجیم.
 
-## راهنمای راه‌اندازی با Docker Compose
-کل اکوسیستم شامل اپلیکیشن و دیتابیس PostgreSQL با یک دستور بالا می‌آید:
+## راهنمای راه‌اندازی زیرساخت (Docker)
+پروژه dr24CoreNet به طور کامل داکریزه شده است تا در هر محیطی بدون نیاز به نصب دستی پیش‌نیازها اجرا شود. برای راه‌اندازی کامل سیستم شامل وب‌سایت، API و پایگاه داده PostgreSQL، کافیست دستور زیر را در پوشه ریشه اجرا کنید:
+
 ```bash
 docker compose up --build
 ```
-پس از اجرا:
-- دیتابیس به صورت خودکار Migrate می‌شود.
-- سیستم Seeding بیش از ۵۰ پزشک واقعی و هزاران اسلات زمانی را تزریق می‌کند.
-- وب‌سایت در پورت ۵۰۰۱ و API در پورت ۵۰۰۰ در دسترس خواهند بود.
 
-## ساختار درختی پروژه
+### فرآیند خودکار پس از اجرا:
+- **ارکستراسیون**: داکر کانتینرهای مجزا برای دیتابیس، API و پنل کاربری ایجاد می‌کند.
+- **مهاجرت دیتابیس**: سیستم به طور خودکار تمام Migrationهای Entity Framework را روی PostgreSQL اعمال می‌کند.
+- **تزریق داده‌های انبوه (Seeding)**: پایگاه داده با بیش از ۵۰ پروفایل پزشک متخصص ایرانی، هزاران اسلات زمانی و تاریخچه تراکنش‌های مالی پر می‌شود تا سیستم کاملاً زنده به نظر برسد.
+- **دسترسی**: پنل کاربری در پورت `5001` و مستندات Swagger API در پورت `5000` در دسترس خواهند بود.
+
+## معماری و ساختار پروژه (Clean Architecture)
+این پروژه از ساختار لایه‌ای استاندارد برای تضمین قابلیت نگهداری و تست‌پذیری استفاده می‌کند:
+
+- **dr24CoreNet.Domain**: لایه مرکزی شامل موجودیت‌های بیزینسی (پزشک، بیمار، نوبت)، مدیریت کیف پول، ارجاعات تخصصی و مدل‌های Audit Trail.
+- **dr24CoreNet.Application**: شامل اینترفیس‌های Repository، DTOها و منطق‌های بیزینسی مانند الگوریتم تولید خودکار اسلات و مدیریت ارجاعات.
+- **dr24CoreNet.Infrastructure**: پیاده‌سازی زیرساخت شامل EF Core، سرویس‌های پس‌زمینه (Background Workers) برای آزادسازی نوبت‌ها، و کشینگ اسنپ‌شات‌های تحلیلی.
+- **dr24CoreNet.WebAPI**: لایه ارتباطی شامل REST APIها و Hubهای SignalR برای مشاوره زنده.
+- **dr24CoreNet.WebUI**: رابط کاربری مدرن طراحی شده با Razor Pages و سیستم CSS محلی (Tailwind-like) همراه با فونت بومی وزیر.
+
 ```
 .
 ├── dr24CoreNet/
-│   ├── dr24CoreNet.Domain/         # مدل‌های پیشرفته (Audit, Referral, Wallet)
-│   ├── dr24CoreNet.Application/    # سرویس‌های بیزینسی و منطق ارجاع
-│   ├── dr24CoreNet.Infrastructure/ # کارگران پس‌زمینه، حسابرسی و دیتابیس
-│   ├── dr24CoreNet.WebAPI/         # هاب SignalR و کنترلرهای بهینه
-│   ├── dr24CoreNet.WebUI/          # رابط کاربری با CSS محلی و فونت وزیر
-│   ├── Dockerfile                  # داکرفایل مالتی‌استیج بهینه
-│   └── docker-compose.yml          # ارکستراسیون کامل سیستم
-├── dr24CoreNet.Tests/              # پروژه‌های تست واحد و یکپارچگی
-├── screenshots/                    # اسکرین‌شات‌های واقعی از محیط برنامه
-└── README.md                       # راهنمای اصلی پروژه
+│   ├── dr24CoreNet.Domain/         # Core Domain Logic
+│   ├── dr24CoreNet.Application/    # Business Services & Interfaces
+│   ├── dr24CoreNet.Infrastructure/ # Persistence & Background Tasks
+│   ├── dr24CoreNet.WebAPI/         # API Endpoints & SignalR
+│   ├── dr24CoreNet.WebUI/          # Modern Premium Frontend
+│   ├── Dockerfile                  # Multi-stage Optimized Build
+│   └── docker-compose.yml          # Full System Orchestration
+├── dr24CoreNet.Tests/              # XUnit Unit & Integration Tests
+├── screenshots/                    # Actual High-Res Screenshots
+└── README.md                       # Project Guidance (Root)
 ```
 
 ## اسکرین‌شات‌های پیشرفته

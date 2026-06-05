@@ -5,13 +5,15 @@ namespace dr24CoreNet.Application.Services;
 public class WalletService
 {
     private readonly IUnitOfWork _unitOfWork;
+    private readonly IAuditService? _auditService;
 
-    public WalletService(IUnitOfWork unitOfWork)
+    public WalletService(IUnitOfWork unitOfWork, IAuditService? auditService = null)
     {
         _unitOfWork = unitOfWork;
+        _auditService = auditService;
     }
 
-    public async Task RefundAppointmentAsync(int appointmentId)
+    public async Task RefundAppointmentAsync(int appointmentId, string ip = "internal")
     {
         var appointment = await _unitOfWork.Appointments.GetByIdAsync(appointmentId);
         if (appointment == null) return;
@@ -37,6 +39,20 @@ public class WalletService
 
             _unitOfWork.Appointments.Delete(appointment);
             await _unitOfWork.SaveChangesAsync();
+
+            if (_auditService != null)
+            {
+                await _auditService.LogActionAsync(
+                    appointment.PatientId.ToString(),
+                    "System",
+                    "REFUND_APPOINTMENT",
+                    "Wallet",
+                    patientWallet.Id.ToString(),
+                    null,
+                    patientWallet,
+                    ip
+                );
+            }
         }
     }
 }

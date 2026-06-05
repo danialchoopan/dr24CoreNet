@@ -1,59 +1,120 @@
 @page
 @model dr24CoreNet.WebUI.Pages.Admin.AnalyticsModel
 @{
-    ViewData["Title"] = "تحلیل داده‌های کلان";
+    ViewData["Title"] = "داشبورد مانیتورینگ هوشمند";
 }
 
 <div class="container">
-    <div class="flex justify-between items-center mb-8">
+    <div class="flex justify-between items-end mb-8">
         <div>
-            <h1>داشبورد تحلیل هوشمند</h1>
-            <p class="text-muted">نظارت بر درآمدهای کارمزد و توزیع تخصصی نوبت‌ها</p>
+            <h1 class="text-3xl font-bold text-slate-900">داشبورد مانیتورینگ هوشمند dr24CoreNet</h1>
+            <p class="text-slate-600 mt-1">تجزیه و تحلیل زنده داده‌های نوبت‌دهی و عملکردهای مالی</p>
         </div>
         <div class="flex gap-4">
-            <select style="width: auto;">
-                <option>۳۰ روز اخیر</option>
+            <select class="input-modern" style="width: 180px;">
+                <option>۷ روز اخیر</option>
+                <option selected>۳۰ روز اخیر</option>
                 <option>۹۰ روز اخیر</option>
             </select>
-            <button class="btn btn-primary">بروزرسانی لایو</button>
         </div>
     </div>
 
-    <div class="grid grid-cols-3 mb-8">
-        <div class="card text-center">
-            <div class="text-muted mb-1">درآمد ناخالص (تومان)</div>
-            <div class="text-xl font-bold text-primary">۷۸,۴۰۰,۰۰۰</div>
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-12">
+        <!-- KPI Card 1 -->
+        <div class="card p-6 shadow-sm border-slate-100">
+            <div class="flex items-center gap-3 mb-4">
+                <div class="p-2 bg-blue-50 text-blue-600 rounded-lg">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                </div>
+                <span class="text-xs font-bold text-slate-400">درآمد کل (۳۰ روز)</span>
+            </div>
+            <div class="flex items-end justify-between">
+                <h3 class="text-2xl font-extrabold text-slate-900">۱۴۲,۵۰۰,۰۰۰</h3>
+                <span class="text-xs font-bold text-green-600 flex items-center gap-1">
+                    ۱۲٪+ <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20"><path d="M5.293 9.707a1 1 0 010-1.414l4-4a1 1 0 011.414 0l4 4a1 1 0 01-1.414 1.414L11 7.414V15a1 1 0 11-2 0V7.414L6.707 9.707a1 1 0 01-1.414 0z"></path></svg>
+                </span>
+            </div>
+            <p class="text-xs text-slate-400 mt-1">تومان</p>
         </div>
-        <div class="card text-center">
-            <div class="text-muted mb-1">تعداد رزرو موفق</div>
-            <div class="text-xl font-bold text-primary">۱,۴۰۲</div>
+
+        <!-- KPI Card 2 -->
+        <div class="card p-6 shadow-sm border-slate-100">
+            <div class="flex items-center gap-3 mb-4">
+                <div class="p-2 bg-green-50 text-green-600 rounded-lg">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"></path></svg>
+                </div>
+                <span class="text-xs font-bold text-slate-400">رزروهای موفق امروز</span>
+            </div>
+            <h3 class="text-2xl font-extrabold text-slate-900">۱۸۴ <span class="text-sm font-medium text-slate-400">نوبت</span></h3>
+            <div class="w-full bg-slate-100 h-1.5 mt-4 rounded-full overflow-hidden">
+                <div class="bg-green-500 h-full" style="width: 75%"></div>
+            </div>
         </div>
-        <div class="card text-center">
-            <div class="text-muted mb-1">نرخ لغو نوبت</div>
-            <div class="text-xl font-bold text-primary" style="color: #e11d48;">۳.۲٪</div>
+
+        <!-- KPI Card 3 -->
+        <div class="card p-6 shadow-sm border-slate-100">
+            <div class="flex items-center gap-3 mb-4">
+                <div class="p-2 bg-purple-50 text-purple-600 rounded-lg">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path></svg>
+                </div>
+                <span class="text-xs font-bold text-slate-400">درصد نفوذ بازار</span>
+            </div>
+            <div class="flex items-center gap-2">
+                <h3 class="text-2xl font-extrabold text-slate-900">۱۲.۵٪</h3>
+                <span class="text-xs bg-purple-100 text-purple-700 px-2 py-0.5 rounded-full">بالاتر از میانگین</span>
+            </div>
+            <p class="text-xs text-slate-400 mt-4">بر پایه ۱۲۰۰ پزشک فعال</p>
+        </div>
+
+        <!-- KPI Card 4 -->
+        <div class="card p-6 shadow-sm border-slate-100">
+            <div class="flex items-center gap-3 mb-4">
+                <div class="p-2 bg-orange-50 text-orange-600 rounded-lg">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M11 3.055A9.001 9.001 0 1020.945 13H11V3.055z"></path><path d="M20.488 9H15V3.512A9.025 9.003 0 0120.488 9z"></path></svg>
+                </div>
+                <span class="text-xs font-bold text-slate-400">توزیع تخصصی</span>
+            </div>
+            <div class="space-y-2 mt-2">
+                <div class="flex justify-between text-[10px] font-bold">
+                    <span>عمومی</span>
+                    <span>۴۵٪</span>
+                </div>
+                <div class="w-full bg-slate-100 h-1 rounded-full"><div class="bg-blue-500 h-full" style="width: 45%"></div></div>
+                <div class="flex justify-between text-[10px] font-bold">
+                    <span>متخصص</span>
+                    <span>۳۰٪</span>
+                </div>
+                <div class="w-full bg-slate-100 h-1 rounded-full"><div class="bg-purple-500 h-full" style="width: 30%"></div></div>
+            </div>
         </div>
     </div>
 
-    <div class="grid grid-cols-2">
-        <div class="card">
-            <h2 class="mb-6">روند درآمد کارمزد</h2>
-            <div style="height: 300px; display: flex; align-items: flex-end; justify-content: space-around; padding: 20px; background: var(--bg); border-radius: 1rem;">
-                <div style="width: 30px; background: var(--primary); height: 40%; border-radius: 4px;"></div>
-                <div style="width: 30px; background: var(--primary); height: 65%; border-radius: 4px;"></div>
-                <div style="width: 30px; background: var(--primary); height: 50%; border-radius: 4px;"></div>
-                <div style="width: 30px; background: var(--primary); height: 85%; border-radius: 4px;"></div>
-                <div style="width: 30px; background: var(--primary); height: 70%; border-radius: 4px;"></div>
-            </div>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div class="card p-8 shadow-lg">
+            <h2 class="text-lg font-bold mb-8 flex items-center gap-2">
+                <div class="w-2 h-6 bg-primary-blue rounded-full"></div>
+                نمودار حجم تراکنش‌های کارمزد
+            </h2>
+            <canvas id="commissionChart" style="height: 350px;"></canvas>
         </div>
-        <div class="card">
-            <h2 class="mb-6">توزیع تخصصی نوبت‌ها</h2>
-            <div style="height: 300px; display: flex; align-items: center; justify-content: center; position: relative;">
-                <div style="width: 180px; height: 180px; border-radius: 50%; background: conic-gradient(var(--primary) 0% 40%, #8b5cf6 40% 70%, #f59e0b 70% 100%);"></div>
-                <div style="position: absolute; width: 100px; height: 100px; border-radius: 50%; background: var(--card-bg);"></div>
+        <div class="card p-8 shadow-lg">
+            <h2 class="text-lg font-bold mb-8 flex items-center gap-2">
+                <div class="w-2 h-6 bg-purple-500 rounded-full"></div>
+                تراکم رزروها در ساعات شبانه‌روز
+            </h2>
+            <div class="flex items-end justify-between gap-2 h-64 mt-12">
+                <div class="bg-slate-100 w-full rounded-t-lg hover:bg-primary-blue transition duration-300" style="height: 20%"></div>
+                <div class="bg-slate-100 w-full rounded-t-lg hover:bg-primary-blue transition duration-300" style="height: 45%"></div>
+                <div class="bg-slate-200 w-full rounded-t-lg hover:bg-primary-blue transition duration-300" style="height: 80%"></div>
+                <div class="bg-primary-blue w-full rounded-t-lg" style="height: 100%"></div>
+                <div class="bg-slate-200 w-full rounded-t-lg hover:bg-primary-blue transition duration-300" style="height: 60%"></div>
+                <div class="bg-slate-100 w-full rounded-t-lg hover:bg-primary-blue transition duration-300" style="height: 30%"></div>
             </div>
-            <div class="flex justify-center gap-4 mt-4 text-sm">
-                <span class="flex items-center gap-1"><div style="width:10px; height:10px; background:var(--primary); border-radius:2px;"></div> عمومی</span>
-                <span class="flex items-center gap-1"><div style="width:10px; height:10px; background:#8b5cf6; border-radius:2px;"></div> متخصص</span>
+            <div class="flex justify-between text-[10px] text-slate-400 mt-4 px-2">
+                <span>۰۸:۰۰</span>
+                <span>۱۲:۰۰</span>
+                <span>۱۶:۰۰</span>
+                <span>۲۰:۰۰</span>
             </div>
         </div>
     </div>
