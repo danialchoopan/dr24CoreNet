@@ -1,0 +1,43 @@
+@page
+@model dr24CoreNet.WebUI.Pages.Doctor.DashboardModel
+@{
+    ViewData["Title"] = "پنل پزشک";
+}
+
+<div class="container">
+    <h1 class="font-bold text-lg mb-4">مدیریت نوبت‌ها و زمان‌بندی</h1>
+
+    <div class="grid grid-cols-3 gap-4">
+        <div class="bg-card p-4 rounded shadow border">
+            <h2 class="font-bold">تعریف بازه زمانی جدید</h2>
+            <form method="post" class="mt-4">
+                <div class="m-2">
+                    <label class="block text-sm">تاریخ:</label>
+                    <input type="date" name="Date" class="border rounded w-full p-2" required />
+                </div>
+                <div class="m-2">
+                    <label class="block text-sm">شروع:</label>
+                    <input type="time" name="StartTime" class="border rounded w-full p-2" required />
+                </div>
+                <div class="m-2">
+                    <label class="block text-sm">پایان:</label>
+                    <input type="time" name="EndTime" class="border rounded w-full p-2" required />
+                </div>
+                <div class="m-2">
+                    <label class="block text-sm">مدت هر ویزیت (دقیقه):</label>
+                    <input type="number" name="Duration" value="15" class="border rounded w-full p-2" required />
+                </div>
+                <button type="submit" class="bg-primary p-2 rounded w-full mt-4">تولید اسلات‌های زمانی</button>
+            </form>
+        </div>
+
+        <div class="bg-card p-4 rounded shadow border col-span-2">
+            <h2 class="font-bold">تقویم کاری و نوبت‌های رزرو شده</h2>
+            <div class="mt-4 grid grid-cols-3 gap-4" id="slotsContainer">
+                <!-- Slots will be rendered here -->
+                <div class="p-2 border rounded bg-card">۰۹:۰۰ - ۰۹:۱۵ (آزاد)</div>
+                <div class="p-2 border rounded bg-primary">۰۹:۱۵ - ۰۹:۳۰ (رزرو شده)</div>
+            </div>
+        </div>
+    </div>
+</div>
