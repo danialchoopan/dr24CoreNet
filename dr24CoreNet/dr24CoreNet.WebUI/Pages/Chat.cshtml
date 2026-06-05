@@ -4,63 +4,43 @@
     ViewData["Title"] = "مشاوره آنلاین";
 }
 
-<div class="container mt-4">
-    <div class="bg-card p-6 rounded-lg shadow-lg border flex flex-col" style="height: 700px;">
-        <div class="border-b pb-4 mb-4 flex justify-between items-center">
-            <h2 class="font-bold text-xl">گفتگوی مستقیم: نوبت #@RouteData.Values["id"]</h2>
-            <div class="flex gap-2">
-                <span class="bg-primary px-3 py-1 rounded-lg text-sm">وضعیت: آنلاین</span>
+<div class="container">
+    <div class="card mb-6" style="padding: 1rem;">
+        <div class="flex justify-between items-center">
+            <div class="flex items-center gap-3">
+                <div style="width:12px; height:12px; border-radius:50%; background:#22c55e;"></div>
+                <h2 style="font-size:1rem;">مشاوره فعال با دکتر علی احمدی</h2>
             </div>
-        </div>
-
-        <div class="chat-container flex-grow mb-6 border p-4 rounded-lg bg-slate-50 dark:bg-slate-900" id="chatWindow">
-            <!-- Messages will be injected here -->
-        </div>
-
-        <div class="flex gap-3">
-            <input type="text" id="msgInput" placeholder="پیام خود را اینجا بنویسید..." class="flex-grow p-3 rounded-lg border bg-card" />
-            <button id="sendBtn" class="bg-primary px-8 py-3 rounded-lg hover:bg-blue-700 transition">ارسال پیام</button>
+            <span class="text-muted" style="font-size:0.75rem;">شناسه نوبت: #@RouteData.Values["id"]</span>
         </div>
     </div>
 
-    <div class="mt-6 bg-card p-6 rounded-lg shadow-lg border">
-        <h3 class="font-bold text-lg mb-4">ثبت اقلام نسخه الکترونیک (مخصوص پزشک)</h3>
-        <div class="grid grid-cols-3 gap-4">
-            <input type="text" id="drugName" placeholder="نام دارو (مثلاً آزیترومایسین)" />
-            <input type="text" id="dosage" placeholder="دوز و تعداد (مثلاً ۵۰۰، روزی یک عدد)" />
-            <button class="bg-primary rounded-lg">ثبت در پرونده</button>
+    <div class="card" style="padding: 0; overflow: hidden;">
+        <div class="chat-window bg-slate-50 dark:bg-slate-900/50" id="chat">
+            <div class="bubble bubble-in">سلام. خسته نباشید. چطور می‌تونم کمکتون کنم؟</div>
+            <div class="bubble bubble-out">سلام آقای دکتر. بابت جواب آزمایش مزاحمتون شدم.</div>
+            <div class="bubble bubble-in">خواهش می‌کنم. لطفاً فایل رو ارسال کنید یا مقادیر TSH رو بگید.</div>
+        </div>
+
+        <div class="p-4 border-t flex gap-4">
+            <input type="text" placeholder="پیام خود را بنویسید..." id="msg" />
+            <button class="btn btn-primary px-10" onclick="send()">ارسال</button>
         </div>
     </div>
 </div>
 
 @section Scripts {
-    <!-- Local SignalR Client Simulation for sandbox verification -->
     <script>
-        const chatWindow = document.getElementById('chatWindow');
-        const msgInput = document.getElementById('msgInput');
-        const sendBtn = document.getElementById('sendBtn');
-
-        function appendMessage(user, text, isSelf) {
+        function send() {
+            const input = document.getElementById('msg');
+            if(!input.value) return;
+            const chat = document.getElementById('chat');
             const div = document.createElement('div');
-            div.className = `msg ${isSelf ? 'msg-self' : 'msg-other'}`;
-            div.innerHTML = `<strong>${user}:</strong> <div>${text}</div><div class="text-xs mt-1" style="opacity:0.7">${new Date().toLocaleTimeString('fa-IR')}</div>`;
-            chatWindow.appendChild(div);
-            chatWindow.scrollTop = chatWindow.scrollHeight;
+            div.className = 'bubble bubble-out';
+            div.innerText = input.value;
+            chat.appendChild(div);
+            input.value = '';
+            chat.scrollTop = chat.scrollHeight;
         }
-
-        sendBtn.onclick = () => {
-            const text = msgInput.value.trim();
-            if(text) {
-                appendMessage('شما', text, true);
-                msgInput.value = '';
-                // Simulate reply for demo
-                setTimeout(() => appendMessage('پزشک', 'پیام شما دریافت شد. در حال بررسی نسخه هستم.', false), 1000);
-            }
-        };
-
-        msgInput.onkeypress = (e) => { if(e.key === 'Enter') sendBtn.click(); };
-
-        // Initial welcome
-        appendMessage('سیستم', 'به اتاق مشاوره dr24CoreNet خوش آمدید.', false);
     </script>
 }

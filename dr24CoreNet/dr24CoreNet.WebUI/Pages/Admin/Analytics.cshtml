@@ -1,87 +1,60 @@
 @page
 @model dr24CoreNet.WebUI.Pages.Admin.AnalyticsModel
 @{
-    ViewData["Title"] = "گزارشات و تحلیل‌های مالی";
+    ViewData["Title"] = "تحلیل داده‌های کلان";
 }
 
-<div class="container mt-4">
-    <div class="flex justify-between items-center mb-6">
-        <h1 class="font-bold text-2xl">داشبورد مانیتورینگ هوشمند dr24CoreNet</h1>
+<div class="container">
+    <div class="flex justify-between items-center mb-8">
+        <div>
+            <h1>داشبورد تحلیل هوشمند</h1>
+            <p class="text-muted">نظارت بر درآمدهای کارمزد و توزیع تخصصی نوبت‌ها</p>
+        </div>
         <div class="flex gap-4">
-            <select id="timeFilter" class="text-sm">
-                <option value="7">۷ روز اخیر</option>
-                <option value="30">۳۰ روز اخیر</option>
-                <option value="90">۹۰ روز اخیر</option>
+            <select style="width: auto;">
+                <option>۳۰ روز اخیر</option>
+                <option>۹۰ روز اخیر</option>
             </select>
-            <div class="bg-card p-2 border rounded-lg text-sm">بروزرسانی لایو (AJAX)</div>
+            <button class="btn btn-primary">بروزرسانی لایو</button>
         </div>
     </div>
 
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-        <div class="bg-card p-6 rounded-lg shadow-lg border text-center">
-            <h3 class="text-sm opacity-70">درآمد کل (۳۰ روز اخیر)</h3>
-            <p class="font-bold text-3xl text-primary mt-2">۱۴۲,۵۰۰,۰۰۰ ریال</p>
+    <div class="grid grid-cols-3 mb-8">
+        <div class="card text-center">
+            <div class="text-muted mb-1">درآمد ناخالص (تومان)</div>
+            <div class="text-xl font-bold text-primary">۷۸,۴۰۰,۰۰۰</div>
         </div>
-        <div class="bg-card p-6 rounded-lg shadow-lg border text-center">
-            <h3 class="text-sm opacity-70">رزروهای موفق امروز</h3>
-            <p class="font-bold text-3xl text-primary mt-2">۱۸۴ نوبت</p>
+        <div class="card text-center">
+            <div class="text-muted mb-1">تعداد رزرو موفق</div>
+            <div class="text-xl font-bold text-primary">۱,۴۰۲</div>
         </div>
-        <div class="bg-card p-6 rounded-lg shadow-lg border text-center">
-            <h3 class="text-sm opacity-70">درصد نفوذ بازار</h3>
-            <p class="font-bold text-3xl text-primary mt-2">۱۲.۵٪</p>
+        <div class="card text-center">
+            <div class="text-muted mb-1">نرخ لغو نوبت</div>
+            <div class="text-xl font-bold text-primary" style="color: #e11d48;">۳.۲٪</div>
         </div>
     </div>
 
-    <div class="grid grid-cols-2 gap-6">
-        <div class="bg-card p-6 rounded-lg shadow-lg border">
-            <h2 class="font-bold text-lg mb-6">نمودار حجم تراکنش‌های کارمزد</h2>
-            <canvas id="commissionChart" style="max-height: 400px;"></canvas>
+    <div class="grid grid-cols-2">
+        <div class="card">
+            <h2 class="mb-6">روند درآمد کارمزد</h2>
+            <div style="height: 300px; display: flex; align-items: flex-end; justify-content: space-around; padding: 20px; background: var(--bg); border-radius: 1rem;">
+                <div style="width: 30px; background: var(--primary); height: 40%; border-radius: 4px;"></div>
+                <div style="width: 30px; background: var(--primary); height: 65%; border-radius: 4px;"></div>
+                <div style="width: 30px; background: var(--primary); height: 50%; border-radius: 4px;"></div>
+                <div style="width: 30px; background: var(--primary); height: 85%; border-radius: 4px;"></div>
+                <div style="width: 30px; background: var(--primary); height: 70%; border-radius: 4px;"></div>
+            </div>
         </div>
-        <div class="bg-card p-6 rounded-lg shadow-lg border">
-            <h2 class="font-bold text-lg mb-6">توزیع رزروها بر اساس تخصص</h2>
-            <canvas id="specializationChart" style="max-height: 400px;"></canvas>
+        <div class="card">
+            <h2 class="mb-6">توزیع تخصصی نوبت‌ها</h2>
+            <div style="height: 300px; display: flex; align-items: center; justify-content: center; position: relative;">
+                <div style="width: 180px; height: 180px; border-radius: 50%; background: conic-gradient(var(--primary) 0% 40%, #8b5cf6 40% 70%, #f59e0b 70% 100%);"></div>
+                <div style="position: absolute; width: 100px; height: 100px; border-radius: 50%; background: var(--card-bg);"></div>
+            </div>
+            <div class="flex justify-center gap-4 mt-4 text-sm">
+                <span class="flex items-center gap-1"><div style="width:10px; height:10px; background:var(--primary); border-radius:2px;"></div> عمومی</span>
+                <span class="flex items-center gap-1"><div style="width:10px; height:10px; background:#8b5cf6; border-radius:2px;"></div> متخصص</span>
+            </div>
         </div>
     </div>
 </div>
-
-@section Scripts {
-    <script src="~/lib/chart.min.js"></script>
-    <script>
-        // Simulated Dynamic Charting Logic (Enterprise standard with Chart.js)
-        document.addEventListener('DOMContentLoaded', () => {
-            // Check if Chart.js exists (simulated in sandbox)
-            if (typeof Chart === 'undefined') {
-                console.warn('Chart.js library is local but might not be fully loaded in sandbox. Rendering fallback UI.');
-                return;
-            }
-
-            const ctx1 = document.getElementById('commissionChart').getContext('2d');
-            new Chart(ctx1, {
-                type: 'line',
-                data: {
-                    labels: ['شنبه', 'یکشنبه', 'دوشنبه', 'سه‌شنبه', 'چهارشنبه', 'پنجشنبه', 'جمعه'],
-                    datasets: [{
-                        label: 'درآمد (میلیون ریال)',
-                        data: [12, 19, 15, 25, 22, 30, 20],
-                        borderColor: '#2563eb',
-                        tension: 0.4,
-                        fill: true,
-                        backgroundColor: 'rgba(37, 99, 235, 0.1)'
-                    }]
-                }
-            });
-
-            const ctx2 = document.getElementById('specializationChart').getContext('2d');
-            new Chart(ctx2, {
-                type: 'doughnut',
-                data: {
-                    labels: ['عمومی', 'متخصص', 'فوق تخصص'],
-                    datasets: [{
-                        data: [45, 30, 25],
-                        backgroundColor: ['#3b82f6', '#8b5cf6', '#f59e0b']
-                    }]
-                }
-            });
-        });
-    </script>
-}

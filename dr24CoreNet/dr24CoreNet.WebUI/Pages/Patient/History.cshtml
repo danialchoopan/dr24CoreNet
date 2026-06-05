@@ -1,0 +1,52 @@
+@page
+@model dr24CoreNet.WebUI.Pages.Patient.HistoryModel
+@{
+    ViewData["Title"] = "سابقه پزشکی و پرونده الکترونیک";
+}
+
+<div class="container mt-4">
+    <h1 class="text-2xl font-bold mb-6 text-primary">پرونده سلامت دیجیتال - dr24CoreNet</h1>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div class="bg-card p-6 rounded-lg shadow-lg border">
+            <h2 class="font-bold text-lg mb-4 border-b pb-2">نوبت‌های اخیر و نسخه‌ها</h2>
+            <div class="space-y-4">
+                <div class="p-4 border rounded-lg bg-blue-50 dark:bg-blue-900/10">
+                    <div class="flex justify-between font-bold">
+                        <span>دکتر علی احمدی</span>
+                        <span class="text-sm opacity-70">۱۴۰۲/۱۰/۱۰</span>
+                    </div>
+                    <p class="text-sm mt-2">تخصص: فوق تخصص قلب</p>
+                    <div class="mt-3 p-2 bg-white dark:bg-slate-800 rounded border text-xs">
+                        نسخه: آزیترومایسین ۵۰۰، روزی یک عدد (۵ روز)
+                    </div>
+                </div>
+                <div class="p-4 border rounded-lg">
+                    <div class="flex justify-between font-bold">
+                        <span>دکتر سارا رضایی</span>
+                        <span class="text-sm opacity-70">۱۴۰۲/۰۹/۱۵</span>
+                    </div>
+                    <p class="text-sm mt-2">تخصص: متخصص پوست</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="bg-card p-6 rounded-lg shadow-lg border">
+            <h2 class="font-bold text-lg mb-4 border-b pb-2">وضعیت کیف پول و پرداخت‌ها</h2>
+            <div class="flex items-center justify-between bg-primary p-4 rounded-lg text-white mb-4">
+                <span>موجودی فعلی:</span>
+                <span class="text-xl font-bold">۷,۵۰۰,۰۰۰ ریال</span>
+            </div>
+            <div class="text-sm space-y-2">
+                <div class="flex justify-between border-b py-2">
+                    <span>رزرو نوبت - دکتر احمدی</span>
+                    <span class="text-red-500">-۲,۰۰۰,۰۰۰</span>
+                </div>
+                <div class="flex justify-between border-b py-2">
+                    <span>برگشت وجه (لغو نوبت)</span>
+                    <span class="text-green-500">+۱,۵۰۰,۰۰۰</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

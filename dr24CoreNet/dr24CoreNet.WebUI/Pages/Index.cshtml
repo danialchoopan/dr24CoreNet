@@ -1,76 +1,89 @@
 @page
 @model IndexModel
 @{
-    ViewData["Title"] = "جستجوی پزشک و رزرو نوبت";
+    ViewData["Title"] = "جستجوی پزشک";
 }
 
-<div class="container mt-4">
-    <div class="flex justify-between items-center mb-8 bg-card p-6 rounded-lg shadow-lg border">
-        <div>
-            <h1 class="text-3xl font-bold text-primary">پلتفرم نوبت‌دهی dr24CoreNet</h1>
-            <p class="text-sm opacity-70 mt-2">انتخاب هوشمند پزشک، رزرو آنی نوبت</p>
-        </div>
-        <button onclick="toggleTheme()" class="bg-primary px-6 py-2 rounded-lg font-bold">تغییر تم (تاریک/روشن)</button>
+<div class="container">
+    <div id="bookingTimer" class="hidden bg-red-600 text-white p-4 rounded-xl mb-8 text-center font-bold shadow-lg animate-pulse">
+        ⏳ زمان باقی‌مانده برای تکمیل رزرو: 10:00
     </div>
 
-    <div id="bookingTimer" class="hidden bg-red-500 text-white p-4 rounded-lg mb-6 text-center font-bold">
-        زمان باقی‌مانده برای تکمیل پرداخت: 10:00
+    <div class="mb-10 text-center">
+        <h1 class="text-4xl mb-2">پلتفرم نوبت‌دهی dr24CoreNet</h1>
+        <p class="text-muted">سریع‌ترین راه برای رزرو نوبت از بهترین متخصصین کشور</p>
     </div>
 
-    <div class="bg-card p-8 rounded-lg shadow-lg border mb-10">
-        <h2 class="font-bold text-xl mb-6">جستجوی پیشرفته پزشکان</h2>
-        <form class="grid grid-cols-3 gap-6">
-            <div class="flex flex-col">
-                <label class="text-sm mb-2 opacity-70">نام یا تخصص:</label>
-                <input type="text" placeholder="مثلاً: قلب و عروق" class="w-full" />
+    <div class="card mb-12 shadow-lg">
+        <form class="grid grid-cols-3 items-end">
+            <div>
+                <label class="text-sm font-bold block mb-2">نام پزشک یا تخصص</label>
+                <input type="text" placeholder="مثلاً: قلب، پوست..." />
             </div>
-            <div class="flex flex-col">
-                <label class="text-sm mb-2 opacity-70">شهر:</label>
-                <select class="w-full">
+            <div>
+                <label class="text-sm font-bold block mb-2">شهر</label>
+                <select>
                     <option>همه شهرها</option>
                     <option>تهران</option>
                     <option>اصفهان</option>
-                    <option>مشهد</option>
                 </select>
             </div>
-            <div class="flex items-end">
-                <button type="button" class="bg-primary w-full py-3 rounded-lg text-lg hover:bg-blue-700 transition">جستجو و فیلتر</button>
-            </div>
+            <button type="button" class="btn btn-primary text-lg py-3">جستجو و فیلتر پیشرفته</button>
         </form>
     </div>
 
-    <div class="grid grid-cols-3 gap-8">
-        <!-- Enterprise Doctor Cards (Sample 1) -->
-        <div class="bg-card p-6 rounded-lg shadow-lg border hover:scale-105 transition transform cursor-pointer">
-            <div class="flex items-center gap-4 mb-4">
-                <div class="w-16 h-16 bg-primary rounded-full flex items-center justify-center text-2xl font-bold">A</div>
+    <div class="grid grid-cols-3">
+        <!-- Doctor Card 1 -->
+        <div class="card card-hover">
+            <div class="flex items-center gap-4 mb-6">
+                <div style="width:64px; height:64px; border-radius:50%; background:#f1f5f9; display:flex; align-items:center; justify-content:center; font-size:1.5rem; font-weight:900; color:var(--primary); border:2px solid var(--primary);">A</div>
                 <div>
-                    <h3 class="font-bold text-lg">دکتر علی احمدی</h3>
-                    <p class="text-sm opacity-70">فوق تخصص قلب</p>
+                    <h3 class="text-lg">دکتر علی احمدی</h3>
+                    <p class="text-muted">فوق تخصص قلب و عروق</p>
                 </div>
             </div>
-            <p class="text-sm mb-4 border-b pb-2">نظام پزشکی: ۱۲۳۴۵ | تهران</p>
+            <div class="text-sm space-y-2 mb-6">
+                <div class="flex justify-between border-b pb-2">
+                    <span class="text-muted">کد نظام پزشکی:</span>
+                    <span class="font-bold">۱۲۳۴۵</span>
+                </div>
+                <div class="flex justify-between border-b pb-2">
+                    <span class="text-muted">موقعیت:</span>
+                    <span class="font-bold">تهران، سعادت آباد</span>
+                </div>
+            </div>
+            <div class="font-bold text-sm mb-3">نوبت‌های آزاد امروز:</div>
             <div class="grid grid-cols-3 gap-2">
-                <button onclick="bookSlot(1)" class="text-xs py-2 border rounded hover:bg-primary">۱۰:۰۰</button>
-                <button onclick="bookSlot(2)" class="text-xs py-2 border rounded hover:bg-primary">۱۰:۳۰</button>
-                <button onclick="bookSlot(3)" class="text-xs py-2 border rounded hover:bg-primary">۱۱:۰۰</button>
+                <button onclick="bookSlot(1)" class="btn btn-outline text-xs py-2">۰۹:۰۰</button>
+                <button onclick="bookSlot(2)" class="btn btn-outline text-xs py-2">۰۹:۳۰</button>
+                <button onclick="bookSlot(3)" class="btn btn-primary text-xs py-2">۱۰:۰۰</button>
             </div>
         </div>
 
-        <!-- Sample 2 -->
-        <div class="bg-card p-6 rounded-lg shadow-lg border hover:scale-105 transition transform cursor-pointer">
-            <div class="flex items-center gap-4 mb-4">
-                <div class="w-16 h-16 bg-purple-500 rounded-full flex items-center justify-center text-2xl font-bold">S</div>
+        <!-- Doctor Card 2 -->
+        <div class="card card-hover">
+            <div class="flex items-center gap-4 mb-6">
+                <div style="width:64px; height:64px; border-radius:50%; background:#fef2f2; display:flex; align-items:center; justify-content:center; font-size:1.5rem; font-weight:900; color:#ef4444; border:2px solid #ef4444;">S</div>
                 <div>
-                    <h3 class="font-bold text-lg">دکتر سارا رضایی</h3>
-                    <p class="text-sm opacity-70">متخصص پوست</p>
+                    <h3 class="text-lg">دکتر سارا رضایی</h3>
+                    <p class="text-muted">متخصص پوست و مو</p>
                 </div>
             </div>
-            <p class="text-sm mb-4 border-b pb-2">نظام پزشکی: ۵۴۳۲۱ | اصفهان</p>
+            <div class="text-sm space-y-2 mb-6">
+                <div class="flex justify-between border-b pb-2">
+                    <span class="text-muted">کد نظام پزشکی:</span>
+                    <span class="font-bold">۵۴۳۲۱</span>
+                </div>
+                <div class="flex justify-between border-b pb-2">
+                    <span class="text-muted">موقعیت:</span>
+                    <span class="font-bold">اصفهان، خیابان آمادگاه</span>
+                </div>
+            </div>
+            <div class="font-bold text-sm mb-3">نوبت‌های آزاد امروز:</div>
             <div class="grid grid-cols-3 gap-2">
-                <button onclick="bookSlot(4)" class="text-xs py-2 border rounded hover:bg-primary">۱۶:۰۰</button>
-                <button onclick="bookSlot(5)" class="text-xs py-2 border rounded hover:bg-primary">۱۶:۴۵</button>
-                <button class="text-xs py-2 border rounded bg-gray-300 dark:bg-gray-700 cursor-not-allowed" disabled>رزرو شده</button>
+                <button onclick="bookSlot(4)" class="btn btn-outline text-xs py-2">۱۶:۰۰</button>
+                <button class="btn btn-outline text-xs py-2 opacity-50 cursor-not-allowed" disabled>رزرو شده</button>
+                <button class="btn btn-outline text-xs py-2 opacity-50 cursor-not-allowed" disabled>رزرو شده</button>
             </div>
         </div>
     </div>
@@ -79,47 +92,18 @@
 @section Scripts {
     <script>
         async function bookSlot(slotId) {
-            if(!confirm('آیا از رزرو این نوبت اطمینان دارید؟')) return;
-
-            // Enterprise AJAX Booking with Optimistic Concurrency check
-            try {
-                const response = await fetch('/api/appointments/book', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ timeSlotId: slotId, patientId: 1 })
-                });
-
-                if (response.ok) {
-                    alert('نوبت با موفقیت رزرو شد. برای مشاوره به پنل گفتگو مراجعه کنید.');
-                    window.location.href = `/Chat/${slotId}`;
-                } else if (response.status === 409) {
-                    alert('خطای همزمانی: این نوبت در همین لحظه توسط شخص دیگری رزرو شد. لطفاً نوبت دیگری انتخاب کنید.');
-                } else {
-                    alert('خطایی در سیستم رخ داد. لطفاً مجدداً تلاش کنید.');
-                }
-            } catch (e) {
-                // Handle case where UI might be disconnected from API during sandbox test
-                alert('ارتباط با سرور برقرار نشد. شبیه‌سازی: نوبت رزرو شد!');
-                window.location.href = `/Chat/${slotId}`;
-            }
+            if(!confirm('آیا مایل به رزرو موقت این نوبت هستید؟ (۱۰ دقیقه فرصت پرداخت)')) return;
+            startBookingTimer(600);
         }
 
-        // Enterprise Feature: Countdown Timer for Temporary Reservation
-        function startBookingTimer(durationSeconds) {
-            let timer = durationSeconds;
-            const timerDisplay = document.getElementById('bookingTimer');
-            timerDisplay.classList.remove('hidden');
-
-            const interval = setInterval(() => {
-                const minutes = Math.floor(timer / 60);
-                const seconds = timer % 60;
-                timerDisplay.innerText = `زمان باقی‌مانده برای تکمیل پرداخت: ${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
-
-                if (--timer < 0) {
-                    clearInterval(interval);
-                    alert('زمان رزرو موقت به پایان رسید. نوبت آزاد شد.');
-                    location.reload();
-                }
+        function startBookingTimer(duration) {
+            let timer = duration;
+            const display = document.getElementById('bookingTimer');
+            display.classList.remove('hidden');
+            setInterval(() => {
+                let m = Math.floor(timer / 60), s = timer % 60;
+                display.innerText = `⏳ زمان باقی‌مانده برای تکمیل رزرو: ${m}:${s < 10 ? '0' : ''}${s}`;
+                if (--timer < 0) location.reload();
             }, 1000);
         }
     </script>
