@@ -7,23 +7,31 @@
     <link rel="stylesheet" href="~/css/tailwind.css" asp-append-version="true" />
 </head>
 <body>
-    <header>
-        <nav class="container flex justify-between items-center py-4 border-b mb-6">
-            <a class="font-bold text-lg" asp-page="/Index">dr24CoreNet</a>
-            <div class="flex gap-4">
-                <a class="text-sm" asp-page="/Index">جستجوی پزشک</a>
-                <a class="text-sm" asp-page="/Doctor/Dashboard">پنل پزشک</a>
-                <a class="text-sm" asp-page="/Admin/Index">پنل مدیریت</a>
+    <nav>
+        <div class="container nav-content">
+            <div class="flex items-center gap-8">
+                <a asp-page="/Index" class="nav-link" style="font-size: 1.5rem; font-weight: 900; color: var(--primary);">dr24CoreNet</a>
+                <div class="nav-links">
+                    <a asp-page="/Index" class="nav-link">جستجوی پزشک</a>
+                    <a asp-page="/Patient/History" class="nav-link">پرونده من</a>
+                    <a asp-page="/Doctor/Dashboard" class="nav-link">پنل پزشک</a>
+                    <a asp-page="/Admin/Analytics" class="nav-link">مدیریت کل</a>
+                </div>
             </div>
-        </nav>
-    </header>
-    <main role="main">
+            <div class="flex items-center gap-4">
+                <a asp-page="/Admin/Audit" class="nav-link text-sm">Audit Trail</a>
+                <button onclick="toggleTheme()" class="btn btn-outline" style="padding: 0.5rem;">🌓</button>
+            </div>
+        </div>
+    </nav>
+
+    <main role="main" class="mt-8">
         @RenderBody()
     </main>
 
-    <footer class="border-t mt-12 py-6">
-        <div class="container text-center text-sm">
-            &copy; ۲۰۲۴ - پلتفرم نوبت‌دهی dr24CoreNet - تمامی حقوق محفوظ است.
+    <footer class="mt-8 py-8 border-t" style="background: var(--card-bg);">
+        <div class="container text-center">
+            <p class="text-muted">© ۲۰۲۴ پلتفرم نوبت‌دهی dr24CoreNet. تمامی حقوق محفوظ است.</p>
         </div>
     </footer>
 
