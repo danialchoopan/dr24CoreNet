@@ -1,0 +1,55 @@
+@page
+@model dr24CoreNet.WebUI.Pages.Admin.IndexModel
+@{
+    ViewData["Title"] = "پنل مدیریت کل";
+}
+
+<div class="container">
+    <h1 class="font-bold text-lg mb-4">داشبورد مدیریت کل dr24CoreNet</h1>
+
+    <div class="grid grid-cols-3 gap-4">
+        <div class="bg-card p-4 rounded shadow border">
+            <h2 class="font-bold">تایید مدارک پزشکان</h2>
+            <ul class="mt-4">
+                <li class="p-2 border-b flex justify-between">
+                    <span>دکتر احمدی</span>
+                    <button class="bg-primary p-1 rounded text-sm">تایید</button>
+                </li>
+                <li class="p-2 border-b flex justify-between">
+                    <span>دکتر ساروی</span>
+                    <button class="bg-primary p-1 rounded text-sm">تایید</button>
+                </li>
+            </ul>
+        </div>
+
+        <div class="bg-card p-4 rounded shadow border col-span-2">
+            <h2 class="font-bold">گزارش درآمدهای کارمزد</h2>
+            <div class="mt-4">
+                <table class="w-full text-sm">
+                    <thead>
+                        <tr class="border-b">
+                            <th class="p-2">پزشک</th>
+                            <th class="p-2">تخصص</th>
+                            <th class="p-2">درصد کارمزد</th>
+                            <th class="p-2">درآمد کل (ریال)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="border-b">
+                            <td class="p-2">دکتر علوی</td>
+                            <td class="p-2">فوق تخصص</td>
+                            <td class="p-2">۲۰٪</td>
+                            <td class="p-2">۵,۰۰۰,۰۰۰</td>
+                        </tr>
+                        <tr class="border-b">
+                            <td class="p-2">دکتر رضایی</td>
+                            <td class="p-2">عمومی</td>
+                            <td class="p-2">۱۰٪</td>
+                            <td class="p-2">۱,۲۰۰,۰۰۰</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

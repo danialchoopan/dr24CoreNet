@@ -1,0 +1,8 @@
+<Solution>
+  <Project Path="../dr24CoreNet.Tests/dr24CoreNet.Tests.csproj" />
+  <Project Path="dr24CoreNet.Application/dr24CoreNet.Application.csproj" />
+  <Project Path="dr24CoreNet.Domain/dr24CoreNet.Domain.csproj" />
+  <Project Path="dr24CoreNet.Infrastructure/dr24CoreNet.Infrastructure.csproj" />
+  <Project Path="dr24CoreNet.WebAPI/dr24CoreNet.WebAPI.csproj" />
+  <Project Path="dr24CoreNet.WebUI/dr24CoreNet.WebUI.csproj" />
+</Solution>

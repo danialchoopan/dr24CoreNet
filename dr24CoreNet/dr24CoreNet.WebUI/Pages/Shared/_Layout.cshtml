@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - dr24CoreNet</title>
+    <link rel="stylesheet" href="~/css/tailwind.css" asp-append-version="true" />
+</head>
+<body>
+    <header>
+        <nav class="container flex justify-between items-center py-4 border-b mb-6">
+            <a class="font-bold text-lg" asp-page="/Index">dr24CoreNet</a>
+            <div class="flex gap-4">
+                <a class="text-sm" asp-page="/Index">جستجوی پزشک</a>
+                <a class="text-sm" asp-page="/Doctor/Dashboard">پنل پزشک</a>
+                <a class="text-sm" asp-page="/Admin/Index">پنل مدیریت</a>
+            </div>
+        </nav>
+    </header>
+    <main role="main">
+        @RenderBody()
+    </main>
+
+    <footer class="border-t mt-12 py-6">
+        <div class="container text-center text-sm">
+            &copy; ۲۰۲۴ - پلتفرم نوبت‌دهی dr24CoreNet - تمامی حقوق محفوظ است.
+        </div>
+    </footer>
+
+    <script src="~/js/theme.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>
