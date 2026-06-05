@@ -37,6 +37,20 @@ dr24CoreNet/
 ```
 
 ## اسکرین‌شات‌های پیشرفته
+### ۱. صفحه جستجوی پیشرفته پزشکان (با فونت وزیر)
+![جستجوی پزشک](./screenshots/search_doctors.png)
+
+### ۲. سیستم رزرو موقت با تایمر معکوس ۱۰ دقیقه‌ای
 ![رزرو با تایمر معکوس](./screenshots/booking_countdown.png)
+
+### ۳. تایم‌لاین حسابرسی پزشکی (HIPAA Audit Trail)
 ![تایم‌لاین حسابرسی پزشکی](./screenshots/medical_audit_trail.png)
+
+### ۴. داشبورد تحلیل هوشمند چندمحوره (Chart.js)
 ![داشبورد تحلیل چندمحوره](./screenshots/enterprise_analytics.png)
+
+### ۵. پرونده الکترونیک و سوابق پزشکی بیمار
+![سابقه پزشکی](./screenshots/medical_history.png)
+
+### ۶. محیط مشاوره آنلاین و چت متنی
+![مشاوره آنلاین](./screenshots/chat_online.png)
