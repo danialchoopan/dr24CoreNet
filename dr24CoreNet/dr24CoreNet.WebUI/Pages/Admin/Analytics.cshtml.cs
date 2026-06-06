@@ -1,50 +1,28 @@
 using dr24CoreNet.Application.Interfaces;
 using dr24CoreNet.Domain.Entities;
-using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.AspNetCore.Mvc;
 
 namespace dr24CoreNet.WebUI.Pages.Admin;
 
-public class AnalyticsModel : PageModel
+public class AnalyticsModel : BasePageModel
 {
-    private readonly IUnitOfWork _unitOfWork;
+    private readonly IUnitOfWork _uow;
 
-    public AnalyticsModel(IUnitOfWork unitOfWork)
+    public AnalyticsModel(IUnitOfWork uow)
     {
-        _unitOfWork = unitOfWork;
+        _uow = uow;
     }
 
-    public decimal TotalRevenue { get; set; }
-    public decimal TotalCommission { get; set; }
-    public int TodayAppointments { get; set; }
-    public List<MedicalAuditLog> RecentAudits { get; set; } = new();
-    public List<SpecialtyStats> SpecialtyDistribution { get; set; } = new();
+    public PlatformFinances Finances { get; set; } = new();
+    public List<Appointment> RecentAppointments { get; set; } = new();
 
     public async Task OnGetAsync()
     {
-        var finances = (await _unitOfWork.PlatformFinances.GetAllAsync()).FirstOrDefault();
-        if (finances != null)
-        {
-            TotalRevenue = finances.TotalRevenue;
-            TotalCommission = finances.TotalCommission;
-        }
+        base.HandleLang();
+        var allFinances = await _uow.PlatformFinances.GetAllAsync();
+        Finances = allFinances.FirstOrDefault() ?? new PlatformFinances();
 
-        var appointments = await _unitOfWork.Appointments.GetAllAsync();
-        TodayAppointments = appointments.Count(a => a.ReservedAt.Date == DateTime.Today);
-
-        var audits = await _unitOfWork.AuditLogs.GetAllAsync();
-        RecentAudits = audits.OrderByDescending(a => a.Timestamp).Take(5).ToList();
-
-        var doctors = await _unitOfWork.Doctors.GetAllAsync();
-        SpecialtyDistribution = doctors
-            .GroupBy(d => d.Specialization?.Name ?? "نامشخص")
-            .Select(g => new SpecialtyStats { Name = g.Key, Count = g.Count() })
-            .OrderByDescending(s => s.Count)
-            .ToList();
-    }
-
-    public class SpecialtyStats
-    {
-        public string Name { get; set; } = "";
-        public int Count { get; set; }
+        var allAppointments = await _uow.Appointments.GetAllAsync();
+        RecentAppointments = allAppointments.OrderByDescending(a => a.ReservedAt).Take(5).ToList();
     }
 }

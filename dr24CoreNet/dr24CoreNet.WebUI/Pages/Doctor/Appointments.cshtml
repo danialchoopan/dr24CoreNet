@@ -55,21 +55,17 @@
             <!-- Todays Appointments -->
             <div class="space-y-6">
                 <div class="card p-6">
-                    <h3 class="font-bold mb-4 text-sm">نوبت‌های امروز (۲۵ مهر)</h3>
+                    <h3 class="font-bold mb-4 text-sm">نوبت‌های اخیر</h3>
                     <div class="space-y-4">
-                        @foreach(var apt in new[] {
-                            new { Time = "۰۹:۰۰", Patient = "علی کریمی", Type = "اولین ویزیت" },
-                            new { Time = "۰۹:۳۰", Patient = "سارا مهدوی", Type = "چکاپ" },
-                            new { Time = "۱۰:۱۵", Patient = "رضا علوی", Type = "مشاوره" }
-                        })
+                        @foreach(var apt in Model.TodaysAppointments)
                         {
                             <div class="p-3 bg-slate-50 rounded-lg flex justify-between items-center">
                                 <div>
-                                    <p class="text-xs font-bold text-slate-900">@apt.Patient</p>
-                                    <p class="text-[10px] text-slate-500">@apt.Type</p>
+                                    <p class="text-xs font-bold text-slate-900">بیمار شناسه #@apt.PatientId</p>
+                                    <p class="text-[10px] text-slate-500">@apt.ReservedAt.ToShortTimeString()</p>
                                 </div>
                                 <div class="text-right">
-                                    <span class="text-xs font-black text-blue-600">@apt.Time</span>
+                                    <span class="text-xs font-black text-blue-600">@apt.Fee.ToString("N0")</span>
                                 </div>
                             </div>
                         }
@@ -78,9 +74,9 @@
                 </div>
 
                 <div class="card p-6 bg-blue-600 text-white">
-                    <h3 class="font-bold mb-2 text-sm">درآمد امروز</h3>
-                    <p class="text-2xl font-black">۴,۸۰۰,۰۰۰ <span class="text-xs font-normal opacity-75">ریال</span></p>
-                    <p class="mt-4 text-[10px] opacity-75">کارمزد کسر شده: ۷۲۰,۰۰۰ ریال</p>
+                    <h3 class="font-bold mb-2 text-sm">درآمد اخیر</h3>
+                    <p class="text-2xl font-black">@Model.TodaysRevenue.ToString("N0") <span class="text-xs font-normal opacity-75">ریال</span></p>
+                    <p class="mt-4 text-[10px] opacity-75">کارمزد کسر شده: @((Model.TodaysRevenue * 0.15m).ToString("N0")) ریال</p>
                 </div>
             </div>
         </div>

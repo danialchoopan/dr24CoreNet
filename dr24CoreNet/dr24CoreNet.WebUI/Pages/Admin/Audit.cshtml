@@ -5,40 +5,78 @@
     ViewData["Title"] = Loc.Get("AuditTitle", lang);
 }
 
-<div class="max-w-7xl mx-auto">
-    <div class="bg-slate-900 text-white p-8 rounded-2xl mb-8 flex justify-between items-center shadow-xl">
-        <div>
-            <h1 class="text-3xl font-black mb-2 flex items-center gap-3">
-                <svg class="w-8 h-8 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
-                @Loc.Get("AuditTitle", lang)
-            </h1>
-            <p class="text-slate-400 font-bold">سامانه پایش امنیت و ردیابی تراکنش‌های درمانی (HIPAA Compliant)</p>
-        </div>
-        <div class="text-left font-mono text-xs text-blue-400">
-            Node: Enterprise-Core-01<br>
-            Status: Active Monitoring
-        </div>
-    </div>
-
-    <div class="space-y-4">
-        @foreach(var i in Enumerable.Range(1, 6))
-        {
-            <div class="bg-white border-l-4 border-blue-600 p-6 rounded-r-xl shadow-sm flex justify-between items-center dark:bg-slate-800 dark:border-blue-500">
-                <div class="flex gap-6 items-center">
-                    <div class="text-xs font-bold text-slate-400">۱۴:۳۲:۰@i</div>
-                    <div>
-                        <div class="font-bold text-slate-900 dark:text-white">تغییر وضعیت اسلات نوبت #@i@i@i@i</div>
-                        <div class="text-xs text-slate-500">توسط سیستم (DistributedLockService)</div>
-                    </div>
-                    <div class="px-3 py-1 bg-slate-100 text-slate-600 rounded-full text-[10px] font-bold dark:bg-slate-700 dark:text-slate-300">
-                        PessimisticLock_Acquired
+<div class="max-w-7xl mx-auto px-4">
+    <div class="bg-gradient-to-br from-slate-900 via-indigo-900 to-slate-900 text-white p-16 rounded-[40px] mb-12 shadow-2xl relative overflow-hidden border border-white/10">
+        <div class="relative z-10">
+            <div class="flex items-center gap-6 mb-10">
+                <div class="w-20 h-20 bg-blue-500 rounded-3xl flex items-center justify-center shadow-lg shadow-blue-500/50">
+                    <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
+                </div>
+                <div>
+                    <h1 class="text-5xl font-black tracking-tight text-white mb-2">@Loc.Get("AuditTitle", lang)</h1>
+                    <p class="text-blue-400 font-black text-sm uppercase tracking-[0.2em]">Enterprise Compliance & Security Ledger</p>
+                </div>
+            </div>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-12 max-w-4xl">
+                <div class="bg-white/5 backdrop-blur-md p-4 rounded-2xl border border-white/10">
+                    <p class="text-[10px] font-black text-blue-400 uppercase tracking-widest mb-2">Standard</p>
+                    <p class="text-lg font-black text-white">HIPAA / GDPR</p>
+                </div>
+                <div class="bg-white/5 backdrop-blur-md p-4 rounded-2xl border border-white/10">
+                    <p class="text-[10px] font-black text-blue-400 uppercase tracking-widest mb-2">Integrity</p>
+                    <p class="text-lg font-black text-emerald-400">SHA-256 Validated</p>
+                </div>
+                <div class="bg-white/5 backdrop-blur-md p-4 rounded-2xl border border-white/10">
+                    <p class="text-[10px] font-black text-blue-400 uppercase tracking-widest mb-2">Retention</p>
+                    <p class="text-lg font-black text-white">7 Years Active</p>
+                </div>
+                <div class="bg-white/5 backdrop-blur-md p-4 rounded-2xl border border-white/10">
+                    <p class="text-[10px] font-black text-blue-400 uppercase tracking-widest mb-2">Engine Status</p>
+                    <div class="flex items-center gap-2 text-lg font-black text-emerald-400">
+                        <span class="w-3 h-3 bg-emerald-500 rounded-full animate-pulse shadow-[0_0_10px_rgba(16,185,129,0.5)]"></span>
+                        Live
                     </div>
                 </div>
-                <div class="flex gap-4 items-center">
-                    <div class="text-[10px] font-mono bg-slate-50 p-2 rounded dark:bg-slate-900 dark:text-blue-400">
-                        {"status": "Locked", "user": "Patient_42", "expire": 600}
+            </div>
+        </div>
+        <!-- Decorative Grid -->
+        <div class="absolute inset-0 opacity-10" style="background-image: radial-gradient(circle at 2px 2px, white 1px, transparent 0); background-size: 40px 40px;"></div>
+    </div>
+
+    <div class="space-y-8">
+        @foreach(var log in Model.Logs)
+        {
+            <div class="card-colorful group hover:shadow-blue-500/10 p-10 flex flex-col lg:flex-row justify-between items-center gap-10 accent-border bg-white dark:bg-slate-800 border-l-4 border-l-blue-600">
+                <div class="flex gap-10 items-center w-full lg:w-auto @(lang == "fa" ? "flex-row" : "flex-row-reverse")">
+                    <div class="flex flex-col items-center">
+                        <div class="text-[10px] font-black text-slate-400 font-mono uppercase mb-1">Time</div>
+                        <div class="text-sm font-black text-blue-600 bg-blue-50 dark:bg-blue-900/20 px-4 py-2 rounded-xl border border-blue-100 dark:border-blue-800">@log.Timestamp.ToString("HH:mm:ss")</div>
                     </div>
-                    <button class="text-blue-600 font-bold text-xs">جزئیات JSON</button>
+                    <div class="@(lang == "fa" ? "text-right" : "text-left")">
+                        <div class="flex items-center gap-3 mb-2">
+                            <span class="px-3 py-1 bg-slate-900 text-white text-[10px] font-black rounded-md tracking-widest">@log.Action</span>
+                            <span class="text-xs font-bold text-slate-400">ID: @log.Id</span>
+                        </div>
+                        <div class="font-black text-xl text-slate-900 dark:text-white mb-2">تغییر وضعیت موجودیت سیستم</div>
+                        <div class="flex items-center gap-2">
+                            <div class="w-8 h-8 rounded-full bg-slate-100 dark:bg-slate-700 flex items-center justify-center text-[10px] font-black text-slate-500">@log.EntityId.Substring(0, Math.Min(2, log.EntityId.Length))</div>
+                            <span class="text-sm font-bold text-slate-600 dark:text-slate-300">Reference: <span class="text-blue-600 font-black">@log.EntityId</span></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex flex-col md:flex-row gap-8 items-center w-full lg:w-auto">
+                    <div class="w-full md:w-72 text-[11px] font-mono bg-[#0f172a] text-blue-300 p-6 rounded-2xl shadow-2xl border border-white/5 relative group-hover:border-blue-500/30 transition-colors">
+                        <div class="absolute top-3 right-3 flex gap-1">
+                            <span class="w-2 h-2 rounded-full bg-red-500/50"></span>
+                            <span class="w-2 h-2 rounded-full bg-yellow-500/50"></span>
+                            <span class="w-2 h-2 rounded-full bg-green-500/50"></span>
+                        </div>
+                        <div class="mt-2 text-slate-500">// Snapshot Data</div>
+                        <span class="text-emerald-400 italic">@log.AfterState.Substring(0, Math.Min(log.AfterState.Length, 100))...</span>
+                    </div>
+                    <button class="whitespace-nowrap px-8 py-4 bg-slate-900 text-white rounded-2xl text-xs font-black hover:bg-blue-600 hover:shadow-lg hover:shadow-blue-500/40 transition-all transform hover:-translate-y-1">
+                        Inspect Node
+                    </button>
                 </div>
             </div>
         }

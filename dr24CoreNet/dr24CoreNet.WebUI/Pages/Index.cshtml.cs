@@ -18,7 +18,7 @@ public class IndexModel : BasePageModel
 
     public async Task OnGetAsync()
     {
-        base.OnGet();
+        base.HandleLang();
         try
         {
             var doctors = await _unitOfWork.Doctors.GetAllAsync();

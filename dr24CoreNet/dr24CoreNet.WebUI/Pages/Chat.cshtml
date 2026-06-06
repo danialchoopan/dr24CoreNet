@@ -5,45 +5,86 @@
     ViewData["Title"] = Loc.Get("ChatTitle", lang);
 }
 
-<div class="max-w-4xl mx-auto h-[700px] bg-white rounded-2xl shadow-xl overflow-hidden flex flex-col border border-slate-100 dark:bg-slate-800 dark:border-slate-700">
-    <div class="p-6 bg-blue-600 text-white flex justify-between items-center">
-        <div class="flex items-center gap-4">
-            <div class="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center font-bold">A</div>
-            <div>
-                <h3 class="font-black">دکتر علی احمدی</h3>
-                <p class="text-xs text-blue-100">در حال گفتگو (Online)</p>
+<div class="max-w-6xl mx-auto px-4 h-[85vh] flex flex-col pb-8">
+    <!-- Chat Header -->
+    <div class="bg-gradient-to-r from-blue-700 to-indigo-800 p-8 rounded-t-[40px] shadow-2xl flex justify-between items-center text-white border-b border-white/10 relative overflow-hidden">
+        <div class="flex items-center gap-6 relative z-10 @(lang == "fa" ? "flex-row" : "flex-row-reverse")">
+            <div class="relative">
+                <div class="w-20 h-20 bg-white/20 backdrop-blur-xl rounded-3xl flex items-center justify-center text-white text-2xl font-black shadow-inner border border-white/30">AA</div>
+                <div class="absolute -bottom-1 -right-1 w-6 h-6 bg-emerald-400 border-4 border-blue-700 rounded-full animate-pulse"></div>
+            </div>
+            <div class="@(lang == "fa" ? "text-right" : "text-left")">
+                <h2 class="text-2xl font-black tracking-tight">دکتر علی احمدی</h2>
+                <div class="flex items-center gap-2 mt-1">
+                    <span class="w-2 h-2 bg-emerald-400 rounded-full"></span>
+                    <p class="text-[10px] font-black uppercase tracking-[0.2em] text-blue-200">System Consultation Active</p>
+                </div>
             </div>
         </div>
-        <button class="px-4 py-2 bg-white/10 rounded-lg text-sm font-bold hover:bg-white/20">پایان گفتگو</button>
+        <div class="flex gap-4 relative z-10">
+            <button class="w-14 h-14 bg-white/10 backdrop-blur-md text-white rounded-2xl flex items-center justify-center border border-white/10 hover:bg-white/20 transition-all">
+                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path></svg>
+            </button>
+            <button class="w-14 h-14 bg-rose-500 text-white rounded-2xl flex items-center justify-center shadow-lg shadow-rose-500/30 hover:scale-105 transition-all">
+                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+            </button>
+        </div>
+        <!-- Decorative Circle -->
+        <div class="absolute top-0 right-0 w-64 h-64 bg-white/5 rounded-full -mr-32 -mt-32"></div>
     </div>
 
-    <div class="flex-grow p-8 space-y-6 overflow-y-auto bg-slate-50 dark:bg-slate-900/50">
-        <div class="flex @(lang == "fa" ? "justify-start" : "justify-end")">
-            <div class="max-w-[70%] bg-white p-4 rounded-2xl rounded-tr-none shadow-sm dark:bg-slate-800">
-                <p class="text-sm dark:text-slate-300">سلام آقای دکتر، وقت بخیر. بابت نتایج آزمایش اخیر سوال داشتم.</p>
-                <span class="text-[10px] text-slate-400 mt-2 block">۱۰:۴۵</span>
+    <!-- Messages Area -->
+    <div class="flex-grow bg-white dark:bg-slate-900 overflow-y-auto p-12 space-y-12 shadow-inner border-x dark:border-slate-800">
+        <!-- Message -->
+        <div class="flex flex-col items-start max-w-[85%] animate-fadeIn">
+            <div class="bg-slate-100 p-6 rounded-[32px] rounded-tl-none shadow-sm dark:bg-slate-800 text-base font-bold leading-relaxed text-slate-800 dark:text-slate-200 border border-slate-200/50 dark:border-slate-700">
+                سلام مریم سادات عزیز. نتایج آزمایش خون شما را بررسی کردم. مورد خاصی دیده نشد، فقط میزان ویتامین D کمی پایین است که مکمل تجویز می‌کنم.
+            </div>
+            <div class="flex items-center gap-2 mt-3 px-2">
+                <div class="w-6 h-6 rounded-full bg-blue-600 text-[10px] text-white flex items-center justify-center font-black">AA</div>
+                <span class="text-[10px] font-black text-slate-400 uppercase tracking-widest">14:02 • Dr. Ali Ahmadi</span>
             </div>
         </div>
 
-        <div class="flex @(lang == "fa" ? "justify-end" : "justify-start")">
-            <div class="max-w-[70%] bg-blue-600 text-white p-4 rounded-2xl rounded-tl-none shadow-md">
-                <p class="text-sm">سلام. بله بفرمایید. نتایج رو بررسی کردم، میزان کلسترول کمی بالاست.</p>
-                <span class="text-[10px] text-blue-200 mt-2 block">۱۰:۴۷</span>
+        <!-- My Message -->
+        <div class="flex flex-col items-end @(lang == "fa" ? "mr-auto" : "ml-auto") max-w-[85%] animate-fadeIn">
+            <div class="bg-gradient-to-br from-blue-600 to-blue-700 text-white p-6 rounded-[32px] rounded-tr-none shadow-2xl shadow-blue-500/20 text-base font-bold leading-relaxed border border-blue-500/30">
+                ممنون از شما دکتر جان. آیا نیاز به مراجعه حضوری هم هست یا همین نسخه کافیه؟
+            </div>
+            <div class="flex items-center gap-2 mt-3 px-2 flex-row-reverse">
+                <svg class="w-4 h-4 text-blue-500" fill="currentColor" viewBox="0 0 20 20"><path d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293l-4 4a1 1 0 01-1.414 0l-2-2a1 1 0 111.414-1.414L9 10.586l3.293-3.293a1 1 0 111.414 1.414z"></path></svg>
+                <span class="text-[10px] font-black text-slate-400 uppercase tracking-widest">14:05 • Delivered</span>
             </div>
         </div>
 
-        <div class="flex @(lang == "fa" ? "justify-start" : "justify-end")">
-            <div class="max-w-[70%] bg-white p-4 rounded-2xl rounded-tr-none shadow-sm dark:bg-slate-800">
-                <p class="text-sm dark:text-slate-300">آیا نیازی به تغییر دوز داروها هست؟</p>
-                <span class="text-[10px] text-slate-400 mt-2 block">۱۰:۴۸</span>
+        <div class="flex flex-col items-start max-w-[85%] animate-fadeIn">
+            <div class="bg-slate-100 p-6 rounded-[32px] rounded-tl-none shadow-sm dark:bg-slate-800 text-base font-bold leading-relaxed text-slate-800 dark:text-slate-200 border border-slate-200/50 dark:border-slate-700">
+                برای این مورد خاص فعلاً نیازی به مراجعه حضوری نیست. نسخه الکترونیک در پروفایل شما ثبت شد. ۳ ماه دیگر آزمایش را تکرار کنید.
+            </div>
+            <div class="flex items-center gap-2 mt-3 px-2">
+                <div class="w-6 h-6 rounded-full bg-blue-600 text-[10px] text-white flex items-center justify-center font-black">AA</div>
+                <span class="text-[10px] font-black text-slate-400 uppercase tracking-widest">14:06 • Dr. Ali Ahmadi</span>
             </div>
         </div>
     </div>
 
-    <div class="p-6 bg-white border-t border-slate-100 dark:bg-slate-800 dark:border-slate-700">
-        <div class="flex gap-4">
-            <input type="text" class="input-modern flex-grow" placeholder="پیام خود را بنویسید...">
-            <button class="btn-primary px-8 rounded-xl font-bold">ارسال</button>
+    <!-- Input Area -->
+    <div class="bg-slate-50 p-10 rounded-b-[40px] shadow-2xl dark:bg-slate-800 border-t border-slate-200 dark:border-slate-700">
+        <div class="flex gap-6 items-center">
+            <button class="w-16 h-16 bg-white dark:bg-slate-900 text-slate-400 rounded-2xl flex items-center justify-center hover:bg-blue-50 hover:text-blue-600 transition-all shadow-sm border border-slate-200 dark:border-slate-700">
+                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.172 7l-6.586 6.586a2 2 0 102.828 2.828l6.414-6.586a4 4 0 00-5.656-5.656l-6.415 6.585a6 6 0 108.486 8.486L20.5 13"></path></svg>
+            </button>
+            <div class="flex-grow relative group">
+                <input type="text" class="w-full bg-white dark:bg-slate-900 h-16 rounded-2xl px-8 pr-16 shadow-inner border border-slate-200 dark:border-slate-700 focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 transition-all font-bold text-slate-800 dark:text-white @(lang == "fa" ? "text-right" : "text-left")" placeholder="@(lang == "fa" ? "پیام خود را بنویسید..." : "Type your message...")">
+                <div class="absolute right-4 top-1/2 -translate-y-1/2 flex items-center gap-2">
+                    <button class="p-2 text-slate-400 hover:text-blue-600 transition-colors">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.828 14.828a4 4 0 01-5.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                    </button>
+                </div>
+            </div>
+            <button class="w-20 h-16 bg-blue-600 text-white rounded-2xl flex items-center justify-center shadow-lg shadow-blue-600/30 hover:bg-blue-700 hover:scale-105 transition-all">
+                <svg class="w-8 h-8 transform @(lang == "fa" ? "rotate-180" : "")" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 5l7 7-7 7M5 5l7 7-7 7"></path></svg>
+            </button>
         </div>
     </div>
 </div>
