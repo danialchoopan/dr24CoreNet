@@ -91,6 +91,3 @@ This section shows the system in operational mode with seeded data and the Vazir
 ![Chat System](screenshots/chat_en.png)
 
 ---
-
-## Local Dependencies (No CDN)
-All static files including CSS, JS, and Vazirmatn fonts are located locally in the `wwwroot` folder to ensure the platform functions correctly in internal networks.
