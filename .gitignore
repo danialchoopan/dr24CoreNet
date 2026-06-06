@@ -13,5 +13,5 @@ node_modules/
 wwwroot/lib/*
 !wwwroot/lib/chart.min.js
 !wwwroot/lib/signalr.min.js
-screenshots/
+# screenshots/
 verification/

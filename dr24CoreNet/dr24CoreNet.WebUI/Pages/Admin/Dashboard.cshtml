@@ -42,7 +42,7 @@
     <div class="grid-cols-dashboard mb-8">
         <div class="card p-6 bg-gradient-to-br from-white to-blue-50">
             <p class="text-xs text-slate-400 font-bold mb-1 uppercase">درآمد کل (ناخالص)</p>
-            <h2 class="text-2xl font-black text-slate-900">۴,۲۵۰,۰۰۰,۰۰۰ <span class="text-xs font-normal text-slate-500">ریال</span></h2>
+            <h2 class="text-2xl font-black text-slate-900">@Model.Finances.TotalRevenue.ToString("N0") <span class="text-xs font-normal text-slate-500">ریال</span></h2>
             <div class="mt-4 flex items-center gap-2 text-green-600">
                 <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path d="M14.707 12.707a1 1 0 01-1.414 0L10 9.414l-3.293 3.293a1 1 0 01-1.414-1.414l4-4a1 1 0 011.414 0l4 4a1 1 0 010 1.414z"></path></svg>
                 <span class="text-xs font-bold">+۱۲.۵٪ نسبت به ماه قبل</span>
@@ -50,7 +50,7 @@
         </div>
         <div class="card p-6 bg-gradient-to-br from-white to-purple-50">
             <p class="text-xs text-slate-400 font-bold mb-1 uppercase">سود خالص پلتفرم (کارمزد)</p>
-            <h2 class="text-2xl font-black text-slate-900">۶۳۷,۵۰۰,۰۰۰ <span class="text-xs font-normal text-slate-500">ریال</span></h2>
+            <h2 class="text-2xl font-black text-slate-900">@Model.Finances.TotalCommission.ToString("N0") <span class="text-xs font-normal text-slate-500">ریال</span></h2>
             <p class="mt-4 text-xs text-slate-500">میانگین کارمزد دریافتی: ۱۵٪</p>
         </div>
         <div class="card p-6">
@@ -112,21 +112,14 @@
                         </tr>
                     </thead>
                     <tbody class="divide-y">
-                        <tr>
-                            <td class="py-4 font-bold">دکتر رضا علوی</td>
-                            <td class="py-4 text-center">۱۲۰,۰۰۰,۰۰۰</td>
-                            <td class="py-4 text-left"><span class="badge badge-success">پرداخت شده</span></td>
-                        </tr>
-                        <tr>
-                            <td class="py-4 font-bold">دکتر سارا مهدوی</td>
-                            <td class="py-4 text-center">۸۵,۰۰۰,۰۰۰</td>
-                            <td class="py-4 text-left"><span class="badge badge-warning">در انتظار</span></td>
-                        </tr>
-                        <tr>
-                            <td class="py-4 font-bold">دکتر محمد تهرانی</td>
-                            <td class="py-4 text-center">۲۱۰,۰۰۰,۰۰۰</td>
-                            <td class="py-4 text-left"><span class="badge badge-success">پرداخت شده</span></td>
-                        </tr>
+                        @foreach(var acc in Model.TopDoctorAccounts)
+                        {
+                            <tr>
+                                <td class="py-4 font-bold">پزشک شناسه #@acc.DoctorId</td>
+                                <td class="py-4 text-center">@acc.TotalEarned.ToString("N0")</td>
+                                <td class="py-4 text-left"><span class="badge badge-success">پرداخت شده</span></td>
+                            </tr>
+                        }
                     </tbody>
                 </table>
             </div>

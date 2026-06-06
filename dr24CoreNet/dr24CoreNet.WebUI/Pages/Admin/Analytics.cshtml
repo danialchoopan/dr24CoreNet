@@ -1,155 +1,95 @@
 @page
 @model dr24CoreNet.WebUI.Pages.Admin.AnalyticsModel
 @{
-    ViewData["Title"] = "داشبورد مانیتورینگ هوشمند";
+    string lang = Request.Query["lang"].ToString() == "en" ? "en" : "fa";
+    ViewData["Title"] = Loc.Get("AnalyticsTitle", lang);
 }
 
-<div class="container">
-    <div class="flex justify-between items-end mb-8">
-        <div>
-            <h1 class="text-3xl font-bold text-slate-900">داشبورد مانیتورینگ هوشمند dr24CoreNet</h1>
-            <p class="text-slate-600 mt-1">تجزیه و تحلیل زنده داده‌های نوبت‌دهی و عملکردهای مالی</p>
-        </div>
-        <div class="flex gap-4">
-            <div class="bg-white px-4 py-2 rounded-lg shadow-sm border border-slate-200 flex items-center gap-2">
-                <span class="w-2 h-2 bg-green-500 rounded-full animate-pulse"></span>
-                <span class="text-xs font-bold text-slate-600">بروزرسانی لایو (AJAX)</span>
+<div class="max-w-7xl mx-auto px-4">
+    <!-- Header Card -->
+    <div class="bg-gradient-to-r from-slate-900 via-blue-900 to-slate-900 p-12 rounded-[40px] shadow-2xl mb-12 text-white relative overflow-hidden">
+        <div class="relative z-10 flex flex-col md:flex-row justify-between items-center gap-6">
+            <div>
+                <h1 class="text-4xl font-black mb-4">@Loc.Get("AnalyticsTitle", lang)</h1>
+                <p class="text-blue-300 font-bold flex items-center gap-2">
+                    <span class="w-2 h-2 bg-blue-400 rounded-full animate-pulse"></span>
+                    Live Financial Infrastructure Monitoring
+                </p>
+            </div>
+            <div class="flex gap-4">
+                <div class="px-6 py-3 bg-white/10 backdrop-blur-md rounded-2xl border border-white/20 text-sm font-black">
+                    @Loc.Get("October25", lang) - v2.4.0
+                </div>
             </div>
         </div>
+        <div class="absolute top-0 right-0 w-64 h-64 bg-blue-500/10 rounded-full blur-3xl -mr-32 -mt-32"></div>
     </div>
 
-    <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-12">
-        <!-- KPI Card 1: Total Revenue -->
-        <div class="card p-6 shadow-sm border-slate-100">
-            <div class="flex items-center gap-3 mb-4">
-                <div class="p-2 bg-blue-50 text-blue-600 rounded-lg">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                </div>
-                <span class="text-xs font-bold text-slate-400">درآمد کل پلتفرم</span>
-            </div>
-            <div class="flex items-end justify-between">
-                <h3 class="text-2xl font-extrabold text-slate-900">@Model.TotalRevenue.ToString("N0")</h3>
-                <span class="text-xs font-bold text-green-600 flex items-center gap-1">
-                    ۱۲٪+ <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20"><path d="M5.293 9.707a1 1 0 010-1.414l4-4a1 1 0 011.414 0l4 4a1 1 0 01-1.414 1.414L11 7.414V15a1 1 0 11-2 0V7.414L6.707 9.707a1 1 0 01-1.414 0z"></path></svg>
-                </span>
-            </div>
-            <p class="text-xs text-slate-400 mt-1">ریال</p>
-        </div>
+    <!-- Metric Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
+        @{
+            var stats = new[] {
+                (Loc.Get("TotalVolume", lang), Model.Finances.TotalRevenue.ToString("N0"), "green", "↑ ۱۲٪ " + Loc.Get("GrowthRate", lang)),
+                (Loc.Get("PlatformCommission", lang), Model.Finances.TotalCommission.ToString("N0"), "blue", "Tier: Enterprise (15%)"),
+                (Loc.Get("ActiveAppointments", lang), Model.RecentAppointments.Count.ToString(), "indigo", "Live tracking"),
+                ("پزشکان آنلاین", "۸۵", "emerald", "7 Specializations")
+            };
+        }
 
-        <!-- KPI Card 2: Commission -->
-        <div class="card p-6 shadow-sm border-slate-100">
-            <div class="flex items-center gap-3 mb-4">
-                <div class="p-2 bg-indigo-50 text-indigo-600 rounded-lg">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path></svg>
+        @foreach (var (title, val, color, trend) in stats)
+        {
+            <div class="card-colorful p-8 relative overflow-hidden group">
+                <div class="absolute top-0 right-0 w-24 h-24 bg-@color-50 rounded-full -mr-12 -mt-12 transition-transform group-hover:scale-150 dark:bg-@color-900/10"></div>
+                <div class="relative z-10">
+                    <p class="text-slate-500 text-xs font-black uppercase tracking-widest mb-4">@title</p>
+                    <h3 class="text-3xl font-black text-slate-900 dark:text-white mb-2">@val <span class="text-sm font-bold text-slate-400">@Loc.Get("Currency", lang)</span></h3>
+                    <p class="text-@color-600 text-[10px] font-black uppercase tracking-tighter">@trend</p>
                 </div>
-                <span class="text-xs font-bold text-slate-400">سود خالص (کارمزد)</span>
             </div>
-            <h3 class="text-2xl font-extrabold text-slate-900">@Model.TotalCommission.ToString("N0")</h3>
-            <p class="text-xs text-slate-400 mt-1">ریال</p>
-        </div>
-
-        <!-- KPI Card 3: Today Appointments -->
-        <div class="card p-6 shadow-sm border-slate-100">
-            <div class="flex items-center gap-3 mb-4">
-                <div class="p-2 bg-green-50 text-green-600 rounded-lg">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
-                </div>
-                <span class="text-xs font-bold text-slate-400">رزروهای امروز</span>
-            </div>
-            <h3 class="text-2xl font-extrabold text-slate-900">@Model.TodayAppointments <span class="text-sm font-medium text-slate-400">نوبت</span></h3>
-            <div class="w-full bg-slate-100 h-1.5 mt-4 rounded-full overflow-hidden">
-                <div class="bg-green-500 h-full" style="width: 65%"></div>
-            </div>
-        </div>
-
-        <!-- KPI Card 4: Specialization Distribution -->
-        <div class="card p-6 shadow-sm border-slate-100">
-            <div class="flex items-center gap-3 mb-4">
-                <div class="p-2 bg-orange-50 text-orange-600 rounded-lg">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M11 3.055A9.001 9.001 0 1020.945 13H11V3.055z"></path><path d="M20.488 9H15V3.512A9.025 9.003 0 0120.488 9z"></path></svg>
-                </div>
-                <span class="text-xs font-bold text-slate-400">توزیع پزشکان</span>
-            </div>
-            <div class="space-y-2 mt-2">
-                @foreach (var stat in Model.SpecialtyDistribution.Take(2))
-                {
-                    <div class="flex justify-between text-[10px] font-bold">
-                        <span>@stat.Name</span>
-                        <span>@stat.Count</span>
-                    </div>
-                    <div class="w-full bg-slate-100 h-1 rounded-full"><div class="bg-blue-500 h-full" style="width: @(stat.Count * 10)%"></div></div>
-                }
-            </div>
-        </div>
+        }
     </div>
 
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
-        <!-- Audit Trail Table -->
-        <div class="card p-8 shadow-lg">
-            <h2 class="text-lg font-bold mb-6 flex items-center gap-2">
-                <div class="w-2 h-6 bg-red-500 rounded-full"></div>
-                Medical Audit Trail (Live)
-            </h2>
-            <div class="overflow-x-auto">
-                <table class="w-full text-right text-sm">
-                    <thead>
-                        <tr class="text-slate-400 border-b border-slate-100">
-                            <th class="pb-4 font-bold">زمان</th>
-                            <th class="pb-4 font-bold">عملیات</th>
-                            <th class="pb-4 font-bold">موجودیت</th>
-                            <th class="pb-4 font-bold">وضعیت</th>
+    <!-- Table Section -->
+    <div class="card-colorful overflow-hidden border-none shadow-2xl">
+        <div class="p-8 border-b border-slate-100 dark:border-slate-800 flex justify-between items-center bg-white dark:bg-slate-800">
+            <h3 class="text-xl font-black text-slate-900 dark:text-white flex items-center gap-3">
+                <span class="w-2 h-6 bg-blue-600 rounded-full"></span>
+                @Loc.Get("RecentTransactions", lang)
+            </h3>
+            <button class="px-6 py-2 bg-slate-100 text-slate-600 rounded-xl text-xs font-black hover:bg-blue-600 hover:text-white transition dark:bg-slate-700 dark:text-slate-300">Export CSV</button>
+        </div>
+        <div class="overflow-x-auto">
+            <table class="w-full text-sm @(lang == "fa" ? "text-right" : "text-left")">
+                <thead class="bg-slate-50 text-slate-500 font-black uppercase tracking-widest text-[10px] dark:bg-slate-900/50">
+                    <tr>
+                        <th class="p-6">Tx ID</th>
+                        <th class="p-6">Entity / Counterparty</th>
+                        <th class="p-6">Volume</th>
+                        <th class="p-6">Engine Status</th>
+                        <th class="p-6">Timestamp</th>
+                    </tr>
+                </thead>
+                <tbody class="divide-y divide-slate-100 dark:divide-slate-800">
+                    @foreach(var apt in Model.RecentAppointments)
+                    {
+                        <tr class="hover:bg-slate-50/50 transition dark:hover:bg-slate-900/50">
+                            <td class="p-6 font-mono text-xs font-bold text-blue-600">TRX-@apt.Id</td>
+                            <td class="p-6">
+                                <div class="font-black text-slate-900 dark:text-white">Appointment #@apt.Id</div>
+                                <div class="text-[10px] text-slate-400 font-bold">Patient ID: @apt.PatientId</div>
+                            </td>
+                            <td class="p-6 font-black text-slate-900 dark:text-white">@apt.Fee.ToString("N0") <span class="text-[10px] text-slate-400">@Loc.Get("Currency", lang)</span></td>
+                            <td class="p-6">
+                                <span class="inline-flex items-center gap-1.5 px-3 py-1 bg-emerald-50 text-emerald-700 rounded-full text-[10px] font-black dark:bg-emerald-900/20 dark:text-emerald-400">
+                                    <span class="w-1.5 h-1.5 bg-emerald-500 rounded-full"></span>
+                                    COMMITTED
+                                </span>
+                            </td>
+                            <td class="p-6 text-slate-500 font-bold text-xs">@apt.ReservedAt.ToShortDateString()</td>
                         </tr>
-                    </thead>
-                    <tbody class="divide-y divide-slate-50">
-                        @foreach (var log in Model.RecentAudits)
-                        {
-                            <tr>
-                                <td class="py-4 text-xs font-mono text-slate-500">@log.Timestamp.ToString("HH:mm:ss")</td>
-                                <td class="py-4 font-bold">@log.Action</td>
-                                <td class="py-4">@log.EntityName (@log.EntityId)</td>
-                                <td class="py-4">
-                                    <span class="px-2 py-0.5 bg-blue-50 text-blue-600 rounded-full text-[10px] font-bold">Verifying...</span>
-                                </td>
-                            </tr>
-                        }
-                    </tbody>
-                </table>
-            </div>
-        </div>
-
-        <!-- Charts Mockup Area -->
-        <div class="card p-8 shadow-lg">
-            <h2 class="text-lg font-bold mb-8 flex items-center gap-2">
-                <div class="w-2 h-6 bg-primary-blue rounded-full"></div>
-                توزیع رزروها بر اساس تخصص
-            </h2>
-            <div class="flex items-center justify-center h-64">
-                <canvas id="specialtyChart"></canvas>
-            </div>
+                    }
+                </tbody>
+            </table>
         </div>
     </div>
 </div>
-
-<script src="~/lib/chart.min.js"></script>
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        const ctx = document.getElementById('specialtyChart').getContext('2d');
-        new Chart(ctx, {
-            type: 'doughnut',
-            data: {
-                labels: @Html.Raw(Json.Serialize(Model.SpecialtyDistribution.Select(s => s.Name))),
-                datasets: [{
-                    data: @Html.Raw(Json.Serialize(Model.SpecialtyDistribution.Select(s => s.Count))),
-                    backgroundColor: ['#3b82f6', '#8b5cf6', '#f59e0b', '#10b981', '#ef4444'],
-                    borderWidth: 0
-                }]
-            },
-            options: {
-                cutout: '70%',
-                plugins: {
-                    legend: { position: 'bottom', labels: { font: { family: 'Vazirmatn' } } }
-                }
-            }
-        });
-    });
-</script>

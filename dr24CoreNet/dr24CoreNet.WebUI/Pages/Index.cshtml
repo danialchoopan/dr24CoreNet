@@ -5,55 +5,111 @@
     ViewData["Title"] = lang == "fa" ? "صفحه اصلی" : "Home";
 }
 
-<div class="max-w-6xl mx-auto">
-    <div class="bg-white p-8 rounded-xl shadow-sm mb-8 dark:bg-slate-800">
-        <h2 class="text-2xl font-black text-slate-900 mb-6 @(lang == "fa" ? "text-right" : "text-left") dark:text-white">@Loc.Get("AdvancedSearch", lang)</h2>
-        <div class="flex flex-col md:flex-row gap-4 items-end">
-            <div class="flex-grow w-full">
-                <label class="block text-xs font-bold text-slate-500 mb-2 @(lang == "fa" ? "text-right" : "text-left")">@Loc.Get("NameOrSpec", lang)</label>
-                <input type="text" class="input-modern @(lang == "fa" ? "text-right" : "text-left")" placeholder="@(lang == "fa" ? "مثلاً: قلب و عروق" : "e.g. Cardiologist")">
+<div class="max-w-6xl mx-auto px-4">
+    <!-- Hero Section -->
+    <div class="bg-hero-gradient p-16 rounded-[40px] shadow-2xl mb-12 text-white relative overflow-hidden">
+        <div class="relative z-10 max-w-2xl">
+            <span class="inline-block px-4 py-1 bg-white/20 backdrop-blur-md rounded-full text-xs font-black mb-6 tracking-widest uppercase">Version 2.0 Operational</span>
+            <h1 class="text-5xl md:text-6xl font-black mb-6 @(lang == "fa" ? "text-right" : "text-left") leading-tight">
+                @Loc.Get("PlatformTitle", lang)
+            </h1>
+            <p class="text-xl md:text-2xl opacity-90 @(lang == "fa" ? "text-right" : "text-left") leading-relaxed font-medium">
+                @Loc.Get("Slogan", lang)
+            </p>
+            <div class="mt-10 flex gap-4 @(lang == "fa" ? "flex-row-reverse" : "flex-row")">
+                <button class="bg-white text-blue-700 px-8 py-4 rounded-2xl font-black shadow-xl hover:bg-blue-50 transition">@Loc.Get("SearchBtn", lang)</button>
+                <button class="bg-blue-800/30 backdrop-blur-md border border-white/30 text-white px-8 py-4 rounded-2xl font-black hover:bg-white/10 transition">مشاوره فوری</button>
             </div>
-            <div class="w-full md:w-64">
-                <label class="block text-xs font-bold text-slate-500 mb-2 @(lang == "fa" ? "text-right" : "text-left")">@Loc.Get("City", lang)</label>
-                <select class="input-modern @(lang == "fa" ? "text-right" : "text-left")">
+        </div>
+
+        <!-- Abstract Decorations -->
+        <div class="absolute top-0 right-0 w-96 h-96 bg-white/10 rounded-full blur-3xl -mr-20 -mt-20"></div>
+        <div class="absolute bottom-0 left-0 w-64 h-64 bg-indigo-500/20 rounded-full blur-2xl -ml-20 -mb-20"></div>
+    </div>
+
+    <!-- Stats Bar -->
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-16 -mt-24 relative z-20 px-8">
+        @foreach(var (label, val, icon) in new[] { ("پزشکان", "850+", "👨‍⚕️"), ("بیماران", "12k+", "👥"), ("نوبت‌ها", "45k+", "📅"), ("رضایت", "98%", "⭐") }) {
+            <div class="bg-white/80 backdrop-blur-xl p-6 rounded-3xl shadow-lg border border-white dark:bg-slate-800/80 dark:border-slate-700 text-center">
+                <div class="text-2xl mb-2">@icon</div>
+                <div class="text-2xl font-black text-slate-900 dark:text-white">@val</div>
+                <div class="text-xs font-bold text-slate-400 uppercase tracking-widest">@label</div>
+            </div>
+        }
+    </div>
+
+    <!-- Search Card -->
+    <div class="bg-white p-10 rounded-[32px] shadow-sm mb-16 dark:bg-slate-800 border border-slate-100 dark:border-slate-700">
+        <h2 class="text-2xl font-black text-slate-900 mb-8 @(lang == "fa" ? "text-right" : "text-left") dark:text-white flex items-center gap-3">
+            <span class="w-3 h-10 bg-gradient-to-b from-blue-600 to-indigo-600 rounded-full"></span>
+            @Loc.Get("AdvancedSearch", lang)
+        </h2>
+        <div class="flex flex-col md:flex-row gap-8 items-end">
+            <div class="flex-grow w-full">
+                <label class="block text-xs font-black text-slate-400 uppercase tracking-widest mb-3 @(lang == "fa" ? "text-right" : "text-left")">@Loc.Get("NameOrSpec", lang)</label>
+                <input type="text" class="input-colorful w-full @(lang == "fa" ? "text-right" : "text-left")" placeholder="@(lang == "fa" ? "جستجوی تخصص، نام پزشک یا مرکز درمانی..." : "Search specialization, doctor name...")">
+            </div>
+            <div class="w-full md:w-80">
+                <label class="block text-xs font-black text-slate-400 uppercase tracking-widest mb-3 @(lang == "fa" ? "text-right" : "text-left")">@Loc.Get("City", lang)</label>
+                <select class="input-colorful w-full @(lang == "fa" ? "text-right" : "text-left")">
                     <option>@Loc.Get("AllCities", lang)</option>
                     <option>@Loc.Get("Tehran", lang)</option>
                     <option>@Loc.Get("Isfahan", lang)</option>
+                    <option>شیراز</option>
+                    <option>مشهد</option>
                 </select>
             </div>
-            <button class="btn-primary px-12 py-3 rounded-lg font-bold">@Loc.Get("SearchBtn", lang)</button>
+            <button class="btn-colorful px-12 py-4">
+                @Loc.Get("SearchBtn", lang)
+            </button>
         </div>
     </div>
 
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+    <!-- Doctor Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-10">
         @foreach (var doctor in Model.FeaturedDoctors)
         {
-            <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-100 flex flex-col dark:bg-slate-800 dark:border-slate-700">
-                <div class="flex justify-between items-start mb-4">
-                    <div class="w-12 h-12 bg-slate-100 rounded-full flex items-center justify-center text-xl font-bold text-slate-400 dark:bg-slate-700">
+            <div class="card-colorful p-10 accent-border">
+                <div class="flex justify-between items-start mb-8">
+                    <div class="w-20 h-20 bg-gradient-to-br from-blue-50 to-indigo-50 rounded-3xl flex items-center justify-center text-3xl font-black text-blue-600 dark:from-slate-700 dark:to-slate-800 shadow-inner">
                         @(doctor.Name.Contains("Ali") || doctor.Name.Contains("علی") ? "A" : "S")
                     </div>
                     <div class="@(lang == "fa" ? "text-right" : "text-left")">
-                        <h3 class="text-xl font-black text-slate-900 dark:text-white">@doctor.Name</h3>
-                        <p class="text-blue-600 font-bold">@doctor.Specialization?.Name</p>
+                        <h3 class="text-3xl font-black text-slate-900 dark:text-white">@doctor.Name</h3>
+                        <div class="flex gap-2 mt-2 @(lang == "fa" ? "flex-row-reverse" : "flex-row")">
+                            <span class="px-3 py-1 bg-blue-600 text-white text-[10px] font-black rounded-full uppercase tracking-tighter shadow-md shadow-blue-200 dark:shadow-none">
+                                @doctor.Specialization?.Name
+                            </span>
+                            <span class="px-3 py-1 bg-emerald-50 text-emerald-600 text-[10px] font-black rounded-full dark:bg-emerald-900/20 dark:text-emerald-400">آماده نوبت‌دهی</span>
+                        </div>
                     </div>
                 </div>
-                <div class="@(lang == "fa" ? "text-right" : "text-left") text-sm text-slate-500 mb-6 dark:text-slate-400">
-                    @Loc.Get("MedicalCouncil", lang): @doctor.MedicalCouncilCode | @doctor.City
+
+                <div class="grid grid-cols-2 gap-4 mb-10">
+                    <div class="p-4 bg-slate-50 rounded-2xl dark:bg-slate-900/50 @(lang == "fa" ? "text-right" : "text-left")">
+                        <p class="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1">@Loc.Get("MedicalCouncil", lang)</p>
+                        <p class="text-lg font-black text-slate-700 dark:text-slate-300">@doctor.MedicalCouncilCode</p>
+                    </div>
+                    <div class="p-4 bg-slate-50 rounded-2xl dark:bg-slate-900/50 @(lang == "fa" ? "text-right" : "text-left")">
+                        <p class="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1">@Loc.Get("City", lang)</p>
+                        <p class="text-lg font-black text-slate-700 dark:text-slate-300">@doctor.City</p>
+                    </div>
                 </div>
-                <div class="flex gap-2">
-                    @if (doctor.Name.Contains("سارا") || doctor.Name.Contains("Sara"))
-                    {
-                        <div class="flex-grow py-2 bg-slate-100 text-slate-400 rounded text-center text-xs font-bold dark:bg-slate-700">@Loc.Get("Reserved", lang)</div>
-                    }
-                    <div class="flex-grow py-2 border border-slate-200 rounded text-center text-xs font-bold dark:border-slate-600 dark:text-slate-300">۱۶:۴۵</div>
-                    <div class="flex-grow py-2 border border-slate-200 rounded text-center text-xs font-bold dark:border-slate-600 dark:text-slate-300">۱۶:۰۰</div>
-                    @if (doctor.Name.Contains("علی") || doctor.Name.Contains("Ali"))
-                    {
-                        <div class="flex-grow py-2 border border-slate-200 rounded text-center text-xs font-bold dark:border-slate-600 dark:text-slate-300">۱۱:۰۰</div>
-                        <div class="flex-grow py-2 border border-slate-200 rounded text-center text-xs font-bold dark:border-slate-600 dark:text-slate-300">۱۰:۳۰</div>
-                        <div class="flex-grow py-2 border border-slate-200 rounded text-center text-xs font-bold dark:border-slate-600 dark:text-slate-300">۱۰:۰۰</div>
-                    }
+
+                <div class="space-y-4">
+                    <p class="text-xs font-black text-slate-400 uppercase tracking-widest @(lang == "fa" ? "text-right" : "text-left")">نزدیک‌ترین زمان‌های موجود</p>
+                    <div class="flex gap-3">
+                        @if (doctor.Name.Contains("سارا") || doctor.Name.Contains("Sara"))
+                        {
+                            <div class="flex-grow py-4 bg-slate-100 text-slate-400 rounded-2xl text-center text-sm font-black dark:bg-slate-700/50">@Loc.Get("Reserved", lang)</div>
+                        }
+                        <div class="flex-grow py-4 border-2 border-slate-100 rounded-2xl text-center text-sm font-black hover:border-blue-600 hover:text-blue-600 transition-all cursor-pointer dark:border-slate-700 dark:text-slate-300">۱۶:۴۵</div>
+                        <div class="flex-grow py-4 border-2 border-slate-100 rounded-2xl text-center text-sm font-black hover:border-blue-600 hover:text-blue-600 transition-all cursor-pointer dark:border-slate-700 dark:text-slate-300">۱۶:۰۰</div>
+                        @if (doctor.Name.Contains("علی") || doctor.Name.Contains("Ali"))
+                        {
+                            <div class="flex-grow py-4 bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-2xl text-center text-sm font-black shadow-lg shadow-blue-200 dark:shadow-none cursor-pointer">۱۱:۰۰</div>
+                        }
+                    </div>
                 </div>
             </div>
         }

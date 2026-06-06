@@ -1,85 +1,96 @@
 # پلتفرم اینترپرایز نوبت‌دهی پزشکی dr24CoreNet
-.
+
 پلتفرم dr24CoreNet یک راهکار جامع و پیشرفته برای مدیریت نوبت‌دهی آنلاین پزشکان است که با تمرکز بر چالش‌های مقیاس‌پذیری، همزمانی (Concurrency) و امنیت داده‌های پزشکی توسعه یافته است. این پروژه با استفاده از معماری Clean Architecture و رعایت اصول SOLID پیاده‌سازی شده است.
 
 ## ویژگی‌های کلیدی فنی
 
 ### ۱. مدیریت همزمانی دو لایه (Race Condition)
 برای جلوگیری از رزرو همزمان یک اسلات توسط دو کاربر، سیستم از دو مکانیزم استفاده می‌کند:
-- **Pessimistic Locking**: استفاده از `DistributedLockService` در سطح حافظه (یا ردیس در آینده) برای قفل کردن موقت اسلات در لحظه درخواست.
-- **Optimistic Concurrency**: استفاده از فیلد `RowVersion` در سطح دیتابیس (Entity Framework Core) برای اطمینان از عدم تغییر داده توسط تراکنش دیگر.
+- **Pessimistic Locking**: استفاده از `DistributedLockService` برای قفل کردن موقت اسلات در لحظه درخواست.
+- **Optimistic Concurrency**: استفاده از فیلد `RowVersion` در سطح دیتابیس (EF Core).
 
 ### ۲. پترن‌های طراحی پیشرفته
-- **Strategy Pattern**: برای محاسبه داینامیک کارمزد پلتفرم بر اساس تخصص پزشک بدون استفاده از ساختارهای شرطی پیچیده.
-- **Adapter Pattern**: شبیه‌سازی اتصال به سرویس‌های قدیمی سازمان نظام پزشکی و تبدیل پروتکل‌های سنتی به مدل‌های مدرن سیستم.
-- **Unit of Work & Repository**: جداسازی کامل منطق دسترسی به داده از منطق تجاری برنامه.
+- **Strategy Pattern**: برای محاسبه داینامیک کارمزد پلتفرم.
+- **Adapter Pattern**: شبیه‌سازی اتصال به سرویس‌های قدیمی سازمان نظام پزشکی.
+- **Unit of Work & Repository**: جداسازی کامل منطق دسترسی به داده.
 
 ### ۳. امنیت و ردیابی (HIPAA Compliance)
-- **Medical Audit Trail**: ثبت تمامی عملیات‌های حساس (رزرو، صدور نسخه، تغییر کیف پول) با جزئیات کامل وضعیت قبل و بعد به صورت JSON.
-- **Electronic Prescription**: سیستم صدور نسخه الکترونیک با قابلیت ردیابی در پرونده سلامت دیجیتال.
-
-### ۴. بهینه‌سازی عملکرد
-- **Analytics Snapshots**: استفاده از Background Workers برای تولید اسنپ‌شات‌های آماری (شبیه به Materialized Views) جهت جلوگیری از کوئری‌های سنگین مالی روی جداول اصلی.
-- **Memory Cache**: ذخیره‌سازی لیست پزشکان و تخصص‌ها با مکانیزم ابطال خودکار پس از تغییر داده.
-
----
-
-## ساختار درختی پروژه (Clean Architecture)
-
-```text
-dr24CoreNet/
-├── dr24CoreNet.Domain/          # موجودیت‌ها، اینوم‌ها و قراردادهای اصلی
-├── dr24CoreNet.Application/     # منطق تجاری، سرویس‌ها و اینترفیس‌ها
-├── dr24CoreNet.Infrastructure/  # پیاده‌سازی دیتابیس، لاگینگ، امنیت و سرویس‌های خارجی
-├── dr24CoreNet.WebAPI/          # وب‌سرویس‌های RESTful برای اپلیکیشن‌های موبایل
-└── dr24CoreNet.WebUI/           # رابط کاربری وب (Razor Pages) با Tailwind CSS
-```
-
----
-
-## راهنمای راه‌اندازی سریع
-
-### پیش‌نیازها
-- .NET 10.0 SDK
-- Docker & Docker Compose
-
-### اجرای سریع با داکر
-برای اجرای کل پلتفرم (شامل دیتابیس PostgreSQL و اپلیکیشن) دستور زیر را در ریشه پروژه اجرا کنید:
-
-```bash
-docker-compose up --build
-```
-
-### اجرای دستی (Development)
-۱. تنظیم رشته اتصال در `appsettings.json`
-۲. اجرای دستورات مهاجرت دیتابیس:
-```bash
-dotnet ef database update --project dr24CoreNet.Infrastructure --startup-project dr24CoreNet.WebUI
-```
-۳. اجرای برنامه:
-```bash
-dotnet run --project dr24CoreNet.WebUI
-```
+- **Medical Audit Trail**: ثبت تمامی عملیات‌های حساس با جزئیات کامل وضعیت قبل و بعد به صورت JSON.
+- **Electronic Prescription**: سیستم صدور نسخه الکترونیک با قابلیت ردیابی.
 
 ---
 
 ## اسکرین‌شات‌های محیط برنامه (Operational Preview)
 
-در این بخش نمایی از سیستم در حالت عملیاتی با داده‌های واقعی (Seeded Data) و فونت وزیر (Vazirmatn) نمایش داده شده است. تمامی دارایی‌های استاتیک از جمله Tailwind CSS و فونت‌ها به صورت محلی بارگذاری می‌شوند.
+در این بخش نمایی از سیستم در حالت عملیاتی با داده‌های واقعی (Seeded Data) و فونت وزیر (Vazirmatn) نمایش داده شده است.
 
-### ۱. نمای اصلی پلتفرم و جستجوی پزشکان (فارسی)
-![نمای اصلی پلتفرم](screenshots/home_fa.png)
+### ۱. نمای اصلی پلتفرم و جستجوی پیشرفته
+![صفحه اصلی](screenshots/home_fa.png)
 
-### ۲. فرآیند رزرو نوبت و شمارش معکوس قفل همزمانی
-![رزرو نوبت و همزمانی](screenshots/booking_countdown.png)
+### ۲. فرآیند رزرو نوبت و قفل همزمانی اسلات
+![صفحه رزرو](screenshots/booking_fa.png)
 
 ### ۳. داشبورد مدیریت مالی و تحلیل درآمدهای پلتفرم
-![داشبورد تحلیل مالی](screenshots/enterprise_analytics.png)
+![تحلیل مالی](screenshots/analytics_fa.png)
 
-### ۴. ردیابی امنیتی عملیات (Audit Trail) و پرونده سلامت
-![ردیابی عملیات و پرونده سلامت](screenshots/medical_audit_trail.png)
+### ۴. ردیابی امنیتی عملیات (Audit Trail)
+![ردیابی عملیات](screenshots/audit_fa.png)
+
+### ۵. پرونده الکترونیک سلامت و سوابق بیمار
+![سوابق پزشکی](screenshots/history_fa.png)
+
+### ۶. سامانه مشاوره آنلاین و گفتگو با پزشک
+![سیستم گفتگو](screenshots/chat_fa.png)
 
 ---
 
 ## وابستگی‌های محلی (No CDN)
-تمامی فایل‌های استاتیک شامل CSS، JS و فونت‌های Vazirmatn به صورت محلی در پوشه `wwwroot` قرار دارند تا پلتفرم در شبکه‌های داخلی و اینترانت بدون وابستگی به اینترنت جهانی به درستی عمل کند.
+تمامی فایل‌های استاتیک شامل CSS، JS و فونت‌های Vazirmatn به صورت محلی در پوشه `wwwroot` قرار دارند.
+# dr24CoreNet Medical Appointment Enterprise Platform
+
+dr24CoreNet is a comprehensive and advanced solution for online doctor appointment management, focusing on scalability, concurrency, and medical data security. The project is implemented using Clean Architecture and follows SOLID principles.
+
+## Key Technical Features
+
+### 1. Dual-Layer Concurrency Management (Race Condition)
+To prevent simultaneous booking of the same slot by two users, the system uses two mechanisms:
+- **Pessimistic Locking**: Uses `DistributedLockService` at the memory level (or Redis in the future) to temporarily lock the slot at the time of request.
+- **Optimistic Concurrency**: Uses the `RowVersion` field at the database level (Entity Framework Core) to ensure data hasn't been changed by another transaction.
+
+### 2. Advanced Design Patterns
+- **Strategy Pattern**: For dynamic calculation of platform commissions based on doctor specialization.
+- **Adapter Pattern**: Simulating connection to legacy Medical Council services.
+- **Unit of Work & Repository**: Complete separation of data access logic from business logic.
+
+### 3. Security and Tracking (HIPAA Compliance)
+- **Medical Audit Trail**: Captures all sensitive operations with full before-and-after state details in JSON.
+- **Electronic Prescription**: Electronic prescription issuance system with traceability.
+
+---
+
+## Operational Preview Screenshots
+
+This section shows the system in operational mode with seeded data and the Vazirmatn font.
+
+### 1. Main Platform View & Advanced Search
+![Home Page](screenshots/home_en.png)
+
+### 2. Appointment Booking & Concurrency Lock
+![Booking Page](screenshots/booking_en.png)
+
+### 3. Financial Management Dashboard
+![Analytics](screenshots/analytics_en.png)
+
+### 4. HIPAA Compliant Audit Trail
+![Audit Trail](screenshots/audit_en.png)
+
+### 5. Patient Electronic Health Record
+![Medical History](screenshots/history_en.png)
+
+### 6. Real-time Doctor Consultation (SignalR)
+![Chat System](screenshots/chat_en.png)
+
+---
+
+## Local Dependencies (No CDN)
+All static files including CSS, JS, and Vazirmatn fonts are located locally in the `wwwroot` folder to ensure the platform functions correctly in internal networks.

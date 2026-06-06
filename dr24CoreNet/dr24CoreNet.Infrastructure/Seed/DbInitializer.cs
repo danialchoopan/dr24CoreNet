@@ -116,7 +116,15 @@ public static class DbInitializer
         };
         context.AnalyticsSnapshots.Add(snapshot);
 
-        // 6. Platform Finances and Doctor Accounts
+        // 6. Audit Logs for Security Demo
+        context.MedicalAuditLogs.AddRange(new List<MedicalAuditLog>
+        {
+            new MedicalAuditLog { Action = "SLOT_LOCK", EntityId = "Slot_101", AfterState = "{\"engine\":\"EF_Optimistic\",\"status\":\"Locked\",\"ttl\":600}", Timestamp = DateTime.UtcNow.AddMinutes(-5) },
+            new MedicalAuditLog { Action = "PAYMENT_SUCCESS", EntityId = "Patient_5", AfterState = "{\"amount\":1200000,\"gateway\":\"ZarinPal\"}", Timestamp = DateTime.UtcNow.AddMinutes(-12) },
+            new MedicalAuditLog { Action = "PRESCRIPTION_ISSUED", EntityId = "Doctor_2", AfterState = "{\"items\":[\"Amoxicillin 500mg\"],\"pharmacy_id\":\"PH-77\"}", Timestamp = DateTime.UtcNow.AddMinutes(-45) }
+        });
+
+        // 7. Platform Finances and Doctor Accounts
         var platform = new PlatformFinances
         {
             TotalRevenue = context.Appointments.Sum(a => a.Fee),
