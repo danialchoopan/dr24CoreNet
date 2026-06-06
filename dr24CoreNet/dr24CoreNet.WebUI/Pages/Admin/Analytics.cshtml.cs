@@ -29,7 +29,7 @@ public class AnalyticsModel : PageModel
         }
 
         var appointments = await _unitOfWork.Appointments.GetAllAsync();
-        TodayAppointments = appointments.Count(a => a.CreatedAt.Date == DateTime.Today);
+        TodayAppointments = appointments.Count(a => a.ReservedAt.Date == DateTime.Today);
 
         var audits = await _unitOfWork.AuditLogs.GetAllAsync();
         RecentAudits = audits.OrderByDescending(a => a.Timestamp).Take(5).ToList();

@@ -1,70 +1,61 @@
 @page
 @model dr24CoreNet.WebUI.Pages.IndexModel
 @{
-    ViewData["Title"] = "صفحه اصلی";
+    string lang = Request.Query["lang"].ToString() == "en" ? "en" : "fa";
+    ViewData["Title"] = lang == "fa" ? "صفحه اصلی" : "Home";
 }
 
-<div class="main-content" style="margin-right: 0;">
-    <div class="max-w-6xl mx-auto">
-        <!-- Hero Section -->
-        <div class="text-center py-16">
-            <h1 class="text-4xl font-extrabold text-slate-900 mb-4">پلتفرم هوشمند نوبت‌دهی dr24CoreNet</h1>
-            <p class="text-lg text-slate-600 mb-8">سریع‌ترین راه برای رزرو نوبت از بهترین متخصصین کشور</p>
-
-            <div class="flex justify-center gap-4">
-                <a href="/Search" class="btn-primary">جستجوی پزشک</a>
-                <a href="/Admin/Dashboard" class="px-6 py-3 border border-slate-200 rounded-lg font-bold hover:bg-slate-50 transition">پنل مدیریت</a>
+<div class="max-w-6xl mx-auto">
+    <div class="bg-white p-8 rounded-xl shadow-sm mb-8 dark:bg-slate-800">
+        <h2 class="text-2xl font-black text-slate-900 mb-6 @(lang == "fa" ? "text-right" : "text-left") dark:text-white">@Loc.Get("AdvancedSearch", lang)</h2>
+        <div class="flex flex-col md:flex-row gap-4 items-end">
+            <div class="flex-grow w-full">
+                <label class="block text-xs font-bold text-slate-500 mb-2 @(lang == "fa" ? "text-right" : "text-left")">@Loc.Get("NameOrSpec", lang)</label>
+                <input type="text" class="input-modern @(lang == "fa" ? "text-right" : "text-left")" placeholder="@(lang == "fa" ? "مثلاً: قلب و عروق" : "e.g. Cardiologist")">
             </div>
+            <div class="w-full md:w-64">
+                <label class="block text-xs font-bold text-slate-500 mb-2 @(lang == "fa" ? "text-right" : "text-left")">@Loc.Get("City", lang)</label>
+                <select class="input-modern @(lang == "fa" ? "text-right" : "text-left")">
+                    <option>@Loc.Get("AllCities", lang)</option>
+                    <option>@Loc.Get("Tehran", lang)</option>
+                    <option>@Loc.Get("Isfahan", lang)</option>
+                </select>
+            </div>
+            <button class="btn-primary px-12 py-3 rounded-lg font-bold">@Loc.Get("SearchBtn", lang)</button>
         </div>
+    </div>
 
-        <!-- KPI Cards -->
-        <div class="grid-cols-dashboard mb-12">
-            <div class="card p-6 flex items-center gap-4">
-                <div class="w-12 h-12 rounded-full bg-blue-100 flex items-center justify-center">
-                    <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        @foreach (var doctor in Model.FeaturedDoctors)
+        {
+            <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-100 flex flex-col dark:bg-slate-800 dark:border-slate-700">
+                <div class="flex justify-between items-start mb-4">
+                    <div class="w-12 h-12 bg-slate-100 rounded-full flex items-center justify-center text-xl font-bold text-slate-400 dark:bg-slate-700">
+                        @(doctor.Name.Contains("Ali") || doctor.Name.Contains("علی") ? "A" : "S")
+                    </div>
+                    <div class="@(lang == "fa" ? "text-right" : "text-left")">
+                        <h3 class="text-xl font-black text-slate-900 dark:text-white">@doctor.Name</h3>
+                        <p class="text-blue-600 font-bold">@doctor.Specialization?.Name</p>
+                    </div>
                 </div>
-                <div>
-                    <p class="text-sm text-slate-500">پزشکان فعال</p>
-                    <p class="text-xl font-bold">۱,۲۴۰</p>
+                <div class="@(lang == "fa" ? "text-right" : "text-left") text-sm text-slate-500 mb-6 dark:text-slate-400">
+                    @Loc.Get("MedicalCouncil", lang): @doctor.MedicalCouncilCode | @doctor.City
                 </div>
-            </div>
-            <div class="card p-6 flex items-center gap-4">
-                <div class="w-12 h-12 rounded-full bg-green-100 flex items-center justify-center">
-                    <svg class="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path></svg>
-                </div>
-                <div>
-                    <p class="text-sm text-slate-500">نوبت‌های موفق</p>
-                    <p class="text-xl font-bold">۴۵,۸۰۰</p>
-                </div>
-            </div>
-            <div class="card p-6 flex items-center gap-4">
-                <div class="w-12 h-12 rounded-full bg-purple-100 flex items-center justify-center">
-                    <svg class="w-6 h-6 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                </div>
-                <div>
-                    <p class="text-sm text-slate-500">صرفه‌جویی مالی</p>
-                    <p class="text-xl font-bold">۱.۲ میلیارد</p>
-                </div>
-            </div>
-        </div>
-
-        <!-- Featured Section -->
-        <div class="card p-8 border-none shadow-sm bg-gradient-to-r from-blue-600 to-blue-700 text-white">
-            <h2 class="text-2xl font-bold mb-4">چرا dr24CoreNet؟</h2>
-            <div class="grid md:grid-cols-3 gap-8">
-                <div>
-                    <h3 class="font-bold mb-2">سرعت بالا</h3>
-                    <p class="text-blue-100 text-sm">رزرو نوبت در کمتر از ۳۰ ثانیه با سیستم بهینه‌سازی شده ککشینگ.</p>
-                </div>
-                <div>
-                    <h3 class="font-bold mb-2">امنیت داده‌ها</h3>
-                    <p class="text-blue-100 text-sm">تمامی سوابق پزشکی با استاندارد HIPAA و سیستم لاگینگ Audit ذخیره می‌شوند.</p>
-                </div>
-                <div>
-                    <h3 class="font-bold mb-2">شفافیت مالی</h3>
-                    <p class="text-blue-100 text-sm">سیستم هوشمند ارجاع و محاسبه خودکار کارمزد بدون خطای انسانی.</p>
+                <div class="flex gap-2">
+                    @if (doctor.Name.Contains("سارا") || doctor.Name.Contains("Sara"))
+                    {
+                        <div class="flex-grow py-2 bg-slate-100 text-slate-400 rounded text-center text-xs font-bold dark:bg-slate-700">@Loc.Get("Reserved", lang)</div>
+                    }
+                    <div class="flex-grow py-2 border border-slate-200 rounded text-center text-xs font-bold dark:border-slate-600 dark:text-slate-300">۱۶:۴۵</div>
+                    <div class="flex-grow py-2 border border-slate-200 rounded text-center text-xs font-bold dark:border-slate-600 dark:text-slate-300">۱۶:۰۰</div>
+                    @if (doctor.Name.Contains("علی") || doctor.Name.Contains("Ali"))
+                    {
+                        <div class="flex-grow py-2 border border-slate-200 rounded text-center text-xs font-bold dark:border-slate-600 dark:text-slate-300">۱۱:۰۰</div>
+                        <div class="flex-grow py-2 border border-slate-200 rounded text-center text-xs font-bold dark:border-slate-600 dark:text-slate-300">۱۰:۳۰</div>
+                        <div class="flex-grow py-2 border border-slate-200 rounded text-center text-xs font-bold dark:border-slate-600 dark:text-slate-300">۱۰:۰۰</div>
+                    }
                 </div>
             </div>
-        </div>
+        }
     </div>
 </div>
