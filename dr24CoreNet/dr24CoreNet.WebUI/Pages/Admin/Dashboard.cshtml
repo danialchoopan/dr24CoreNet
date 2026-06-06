@@ -1,0 +1,135 @@
+@page
+@model dr24CoreNet.WebUI.Pages.AdminDashboardModel
+@{
+    ViewData["Title"] = "داشبورد مدیریت مالی";
+}
+
+<div class="sidebar">
+    <div class="p-6 border-b">
+        <h1 class="text-xl font-bold text-blue-600">dr24CoreNet</h1>
+        <p class="text-[10px] text-slate-400 font-bold uppercase tracking-widest mt-1">پنل مدیریت اینترپرایز</p>
+    </div>
+    <nav class="p-4 space-y-2">
+        <a href="#" class="flex items-center gap-3 p-3 bg-blue-50 text-blue-700 rounded-lg font-bold">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"></path></svg>
+            داشبورد کلی
+        </a>
+        <a href="#" class="flex items-center gap-3 p-3 text-slate-600 hover:bg-slate-50 rounded-lg transition">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
+            مدیریت پزشکان
+        </a>
+        <a href="/Admin/Audit" class="flex items-center gap-3 p-3 text-slate-600 hover:bg-slate-50 rounded-lg transition">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+            گزارشات Audit
+        </a>
+    </nav>
+</div>
+
+<div class="main-content">
+    <div class="flex justify-between items-center mb-8">
+        <div>
+            <h1 class="text-2xl font-bold text-slate-900">تحلیل وضعیت مالی پلتفرم</h1>
+            <p class="text-sm text-slate-500">گزارش لحظه‌ای از درآمدها و کارمزدهای سیستم</p>
+        </div>
+        <div class="flex gap-4">
+            <button class="px-4 py-2 bg-white border border-slate-200 rounded-lg text-sm font-bold flex items-center gap-2">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
+                خروجی PDF
+            </button>
+        </div>
+    </div>
+
+    <div class="grid-cols-dashboard mb-8">
+        <div class="card p-6 bg-gradient-to-br from-white to-blue-50">
+            <p class="text-xs text-slate-400 font-bold mb-1 uppercase">درآمد کل (ناخالص)</p>
+            <h2 class="text-2xl font-black text-slate-900">۴,۲۵۰,۰۰۰,۰۰۰ <span class="text-xs font-normal text-slate-500">ریال</span></h2>
+            <div class="mt-4 flex items-center gap-2 text-green-600">
+                <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path d="M14.707 12.707a1 1 0 01-1.414 0L10 9.414l-3.293 3.293a1 1 0 01-1.414-1.414l4-4a1 1 0 011.414 0l4 4a1 1 0 010 1.414z"></path></svg>
+                <span class="text-xs font-bold">+۱۲.۵٪ نسبت به ماه قبل</span>
+            </div>
+        </div>
+        <div class="card p-6 bg-gradient-to-br from-white to-purple-50">
+            <p class="text-xs text-slate-400 font-bold mb-1 uppercase">سود خالص پلتفرم (کارمزد)</p>
+            <h2 class="text-2xl font-black text-slate-900">۶۳۷,۵۰۰,۰۰۰ <span class="text-xs font-normal text-slate-500">ریال</span></h2>
+            <p class="mt-4 text-xs text-slate-500">میانگین کارمزد دریافتی: ۱۵٪</p>
+        </div>
+        <div class="card p-6">
+            <p class="text-xs text-slate-400 font-bold mb-1 uppercase">تراکنش‌های موفق</p>
+            <h2 class="text-2xl font-black text-slate-900">۸,۴۲۰</h2>
+            <div class="mt-4 w-full bg-slate-100 h-1.5 rounded-full overflow-hidden">
+                <div class="bg-blue-600 h-full w-[85%]"></div>
+            </div>
+            <p class="mt-2 text-[10px] text-slate-500">۸۵٪ از کل درخواست‌ها</p>
+        </div>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+        <div class="card p-6">
+            <h3 class="font-bold mb-6 flex items-center justify-between">
+                توزیع درآمد بر اساس تخصص
+                <span class="badge badge-success">بروزرسانی زنده</span>
+            </h3>
+            <div class="space-y-6">
+                <div>
+                    <div class="flex justify-between text-xs mb-2">
+                        <span>متخصصین قلب</span>
+                        <span class="font-bold">۳۵٪</span>
+                    </div>
+                    <div class="w-full bg-slate-100 h-2 rounded-full overflow-hidden">
+                        <div class="bg-blue-500 h-full w-[35%]"></div>
+                    </div>
+                </div>
+                <div>
+                    <div class="flex justify-between text-xs mb-2">
+                        <span>دندانپزشکی</span>
+                        <span class="font-bold">۲۸٪</span>
+                    </div>
+                    <div class="w-full bg-slate-100 h-2 rounded-full overflow-hidden">
+                        <div class="bg-purple-500 h-full w-[28%]"></div>
+                    </div>
+                </div>
+                <div>
+                    <div class="flex justify-between text-xs mb-2">
+                        <span>پوست و مو</span>
+                        <span class="font-bold">۲۲٪</span>
+                    </div>
+                    <div class="w-full bg-slate-100 h-2 rounded-full overflow-hidden">
+                        <div class="bg-green-500 h-full w-[22%]"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card p-6 overflow-hidden">
+            <h3 class="font-bold mb-6">آخرین تسویه حساب‌های پزشکان</h3>
+            <div class="overflow-x-auto">
+                <table class="w-full text-right text-sm">
+                    <thead>
+                        <tr class="text-slate-400 border-b">
+                            <th class="pb-4 font-normal">پزشک</th>
+                            <th class="pb-4 font-normal text-center">مبلغ تسویه</th>
+                            <th class="pb-4 font-normal text-left">وضعیت</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y">
+                        <tr>
+                            <td class="py-4 font-bold">دکتر رضا علوی</td>
+                            <td class="py-4 text-center">۱۲۰,۰۰۰,۰۰۰</td>
+                            <td class="py-4 text-left"><span class="badge badge-success">پرداخت شده</span></td>
+                        </tr>
+                        <tr>
+                            <td class="py-4 font-bold">دکتر سارا مهدوی</td>
+                            <td class="py-4 text-center">۸۵,۰۰۰,۰۰۰</td>
+                            <td class="py-4 text-left"><span class="badge badge-warning">در انتظار</span></td>
+                        </tr>
+                        <tr>
+                            <td class="py-4 font-bold">دکتر محمد تهرانی</td>
+                            <td class="py-4 text-center">۲۱۰,۰۰۰,۰۰۰</td>
+                            <td class="py-4 text-left"><span class="badge badge-success">پرداخت شده</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

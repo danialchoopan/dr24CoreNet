@@ -1,0 +1,87 @@
+@page "{id}"
+@model dr24CoreNet.WebUI.Pages.BookingModel
+@{
+    ViewData["Title"] = "رزرو نوبت";
+}
+
+<div class="main-content" style="margin-right: 0;">
+    <div class="max-w-4xl mx-auto">
+        <div class="card p-8">
+            <div class="flex justify-between items-start mb-8">
+                <div class="flex gap-6">
+                    <div class="w-24 h-24 bg-blue-50 rounded-2xl flex items-center justify-center text-blue-600">
+                        <svg class="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>
+                    </div>
+                    <div>
+                        <h1 class="text-2xl font-bold text-slate-900">دکتر امیرعلی علوی</h1>
+                        <p class="text-blue-600 font-bold">متخصص قلب و عروق</p>
+                        <div class="flex items-center gap-2 mt-2 text-sm text-slate-500">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+                            تهران، خیابان ولیعصر، ساختمان پزشکان دی
+                        </div>
+                    </div>
+                </div>
+                <div class="text-left">
+                    <div class="bg-red-50 text-red-600 px-4 py-2 rounded-xl border border-red-100 flex items-center gap-2">
+                        <span class="text-xs font-bold">زمان باقی‌مانده برای رزرو:</span>
+                        <span class="text-lg font-black" id="timer">09:55</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12 pt-8 border-t">
+                <div>
+                    <h3 class="font-bold text-slate-900 mb-6 flex items-center gap-2">
+                        <svg class="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                        انتخاب ساعت ویزیت
+                    </h3>
+                    <div class="grid grid-cols-3 gap-3">
+                        @foreach(var time in new[] { "۰۸:۰۰", "۰۸:۳۰", "۰۹:۰۰", "۰۹:۳۰", "۱۰:۰۰", "۱۰:۳۰" })
+                        {
+                            <button class="p-3 border rounded-xl text-sm font-bold hover:border-blue-600 hover:bg-blue-50 transition-all @(time == "۰۹:۳۰" ? "border-blue-600 bg-blue-600 text-white" : "text-slate-600")">
+                                @time
+                            </button>
+                        }
+                    </div>
+                </div>
+
+                <div class="bg-slate-50 rounded-2xl p-6">
+                    <h3 class="font-bold text-slate-900 mb-6">خلاصه درخواست نوبت</h3>
+                    <div class="space-y-4 text-sm">
+                        <div class="flex justify-between">
+                            <span class="text-slate-500">تاریخ ویزیت</span>
+                            <span class="font-bold">شنبه، ۲۵ مهر ۱۴۰۲</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-slate-500">ساعت ویزیت</span>
+                            <span class="font-bold">۰۹:۳۰ صبح</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-slate-500">هزینه ویزیت</span>
+                            <span class="font-bold">۱,۲۰۰,۰۰۰ ریال</span>
+                        </div>
+                        <div class="pt-4 border-t border-slate-200">
+                            <div class="flex justify-between text-blue-600 font-black text-lg">
+                                <span>مبلغ قابل پرداخت</span>
+                                <span>۱,۲۰۰,۰۰۰ ریال</span>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="w-full btn-primary mt-8 py-4 shadow-lg shadow-blue-200">تایید نهایی و پرداخت</button>
+                    <p class="text-[10px] text-slate-400 mt-4 text-center">با کلیک بر روی تایید، اسلات انتخابی به مدت ۱۰ دقیقه برای شما قفل (Lock) می‌شود.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    let seconds = 595;
+    const timerEl = document.getElementById('timer');
+    setInterval(() => {
+        seconds--;
+        const m = Math.floor(seconds / 60);
+        const s = seconds % 60;
+        timerEl.innerText = `${m.toString().padStart(2, '0')}:${s.toString().padStart(2, '0')}`;
+    }, 1000);
+</script>

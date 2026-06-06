@@ -115,6 +115,32 @@ public static class DbInitializer
             LastUpdated = DateTime.UtcNow
         };
         context.AnalyticsSnapshots.Add(snapshot);
+
+        // 6. Platform Finances and Doctor Accounts
+        var platform = new PlatformFinances
+        {
+            TotalRevenue = context.Appointments.Sum(a => a.Fee),
+            TotalCommission = context.Appointments.Sum(a => a.Commission),
+            TotalPayouts = context.Appointments.Sum(a => a.Fee - a.Commission),
+            LastUpdated = DateTime.UtcNow
+        };
+        context.PlatformFinances.Add(platform);
+
+        foreach (var doc in doctors)
+        {
+            var docRevenue = context.Appointments
+                .Where(a => a.TimeSlot!.DoctorId == doc.Id)
+                .Sum(a => a.Fee - a.Commission);
+
+            context.DoctorAccounts.Add(new DoctorAccount
+            {
+                DoctorId = doc.Id,
+                PendingBalance = 0,
+                WithdrawableBalance = docRevenue * 0.8m,
+                TotalEarned = docRevenue
+            });
+        }
+
         await context.SaveChangesAsync();
     }
 }

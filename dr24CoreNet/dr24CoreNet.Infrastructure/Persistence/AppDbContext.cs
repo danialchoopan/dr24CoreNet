@@ -25,6 +25,9 @@ public class AppDbContext : DbContext
     public DbSet<DoctorReferral> DoctorReferrals => Set<DoctorReferral>();
     public DbSet<AnalyticsSnapshot> AnalyticsSnapshots => Set<AnalyticsSnapshot>();
 
+    public DbSet<PlatformFinances> PlatformFinances => Set<PlatformFinances>();
+    public DbSet<DoctorAccount> DoctorAccounts => Set<DoctorAccount>();
+
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<TimeSlot>()

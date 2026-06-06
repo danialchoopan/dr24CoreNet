@@ -4,43 +4,50 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - dr24CoreNet</title>
-    <link rel="stylesheet" href="~/css/tailwind.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/tailwind.min.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <style>
+        /* Ensuring font priority */
+        body { font-family: 'Vazirmatn', sans-serif !important; }
+    </style>
 </head>
-<body>
-    <nav>
-        <div class="container nav-content">
-            <a asp-page="/Index" class="logo">dr24CoreNet</a>
+<body class="bg-slate-50">
+    <header class="bg-white border-b sticky top-0 z-50">
+        <div class="max-w-6xl mx-auto px-4 h-16 flex justify-between items-center">
+            <a href="/" class="text-2xl font-black text-blue-600 tracking-tighter">dr24<span class="text-slate-900">CoreNet</span></a>
 
-            <div class="flex items-center gap-6">
-                <div class="nav-links">
-                    <a asp-page="/Index" class="nav-link">جستجوی پزشک</a>
-                    <a asp-page="/Patient/History" class="nav-link">پرونده من</a>
-                    <a asp-page="/Doctor/Dashboard" class="nav-link">پنل پزشک</a>
-                    <a asp-page="/Admin/Analytics" class="nav-link">پنل مدیریت</a>
-                </div>
+            <nav class="hidden md:flex gap-8 text-sm font-bold text-slate-600">
+                <a href="/Search" class="hover:text-blue-600 transition">جستجوی پزشک</a>
+                <a href="/Doctor/Appointments" class="hover:text-blue-600 transition">پنل پزشک</a>
+                <a href="/Patient/History" class="hover:text-blue-600 transition">پرونده من</a>
+                <a href="/Admin/Dashboard" class="text-blue-600">داشبورد مدیریت</a>
+            </nav>
 
-                <div class="flex items-center gap-4 border-r pr-6 border-slate-200">
-                    <button onclick="toggleTheme()" class="btn btn-slate" style="border-radius: 9999px; padding: 0.5rem;">🌓</button>
-                    <div class="flex flex-col items-end">
-                        <span class="text-xs font-bold text-slate-900">جواد کریمی</span>
-                        <a href="#" class="text-xs text-red-500 hover:text-red-700 font-medium">خروج</a>
-                    </div>
+            <div class="flex items-center gap-4">
+                <div class="w-10 h-10 rounded-full bg-slate-100 flex items-center justify-center">
+                    <svg class="w-5 h-5 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"></path></svg>
                 </div>
             </div>
         </div>
-    </nav>
+    </header>
 
-    <main role="main" class="mt-8 pb-12">
+    <main role="main" class="pb-3">
         @RenderBody()
     </main>
 
-    <footer class="py-8 border-t bg-white dark:bg-slate-900">
-        <div class="container text-center">
-            <p class="text-xs text-slate-500">© ۲۰۲۶ - پلتفرم نوبت‌دهی dr24CoreNet - تمامی حقوق محفوظ است.</p>
+    <footer class="border-t bg-white py-12 mt-20">
+        <div class="max-w-6xl mx-auto px-4 text-center">
+            <p class="text-sm text-slate-400 font-bold uppercase tracking-widest mb-4">dr24CoreNet - پلتفرم نوبت‌دهی پزشکی</p>
+            <div class="flex justify-center gap-8 mb-8 text-slate-500 text-xs font-bold">
+                <a href="#">قوانین و مقررات</a>
+                <a href="#">پشتیبانی</a>
+                <a href="#">درباره ما</a>
+                <a href="#">فرصت‌های شغلی</a>
+            </div>
+            <p class="text-[10px] text-slate-300">© ۱۴۰۲ تمامی حقوق برای پلتفرم dr24CoreNet محفوظ است. طراحی شده با Clean Architecture.</p>
         </div>
     </footer>
 
-    <script src="~/js/theme.js" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

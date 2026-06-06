@@ -11,111 +11,145 @@
             <p class="text-slate-600 mt-1">تجزیه و تحلیل زنده داده‌های نوبت‌دهی و عملکردهای مالی</p>
         </div>
         <div class="flex gap-4">
-            <select class="input-modern" style="width: 180px;">
-                <option>۷ روز اخیر</option>
-                <option selected>۳۰ روز اخیر</option>
-                <option>۹۰ روز اخیر</option>
-            </select>
+            <div class="bg-white px-4 py-2 rounded-lg shadow-sm border border-slate-200 flex items-center gap-2">
+                <span class="w-2 h-2 bg-green-500 rounded-full animate-pulse"></span>
+                <span class="text-xs font-bold text-slate-600">بروزرسانی لایو (AJAX)</span>
+            </div>
         </div>
     </div>
 
     <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-12">
-        <!-- KPI Card 1 -->
+        <!-- KPI Card 1: Total Revenue -->
         <div class="card p-6 shadow-sm border-slate-100">
             <div class="flex items-center gap-3 mb-4">
                 <div class="p-2 bg-blue-50 text-blue-600 rounded-lg">
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
                 </div>
-                <span class="text-xs font-bold text-slate-400">درآمد کل (۳۰ روز)</span>
+                <span class="text-xs font-bold text-slate-400">درآمد کل پلتفرم</span>
             </div>
             <div class="flex items-end justify-between">
-                <h3 class="text-2xl font-extrabold text-slate-900">۱۴۲,۵۰۰,۰۰۰</h3>
+                <h3 class="text-2xl font-extrabold text-slate-900">@Model.TotalRevenue.ToString("N0")</h3>
                 <span class="text-xs font-bold text-green-600 flex items-center gap-1">
                     ۱۲٪+ <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20"><path d="M5.293 9.707a1 1 0 010-1.414l4-4a1 1 0 011.414 0l4 4a1 1 0 01-1.414 1.414L11 7.414V15a1 1 0 11-2 0V7.414L6.707 9.707a1 1 0 01-1.414 0z"></path></svg>
                 </span>
             </div>
-            <p class="text-xs text-slate-400 mt-1">تومان</p>
+            <p class="text-xs text-slate-400 mt-1">ریال</p>
         </div>
 
-        <!-- KPI Card 2 -->
+        <!-- KPI Card 2: Commission -->
+        <div class="card p-6 shadow-sm border-slate-100">
+            <div class="flex items-center gap-3 mb-4">
+                <div class="p-2 bg-indigo-50 text-indigo-600 rounded-lg">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path></svg>
+                </div>
+                <span class="text-xs font-bold text-slate-400">سود خالص (کارمزد)</span>
+            </div>
+            <h3 class="text-2xl font-extrabold text-slate-900">@Model.TotalCommission.ToString("N0")</h3>
+            <p class="text-xs text-slate-400 mt-1">ریال</p>
+        </div>
+
+        <!-- KPI Card 3: Today Appointments -->
         <div class="card p-6 shadow-sm border-slate-100">
             <div class="flex items-center gap-3 mb-4">
                 <div class="p-2 bg-green-50 text-green-600 rounded-lg">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"></path></svg>
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
                 </div>
-                <span class="text-xs font-bold text-slate-400">رزروهای موفق امروز</span>
+                <span class="text-xs font-bold text-slate-400">رزروهای امروز</span>
             </div>
-            <h3 class="text-2xl font-extrabold text-slate-900">۱۸۴ <span class="text-sm font-medium text-slate-400">نوبت</span></h3>
+            <h3 class="text-2xl font-extrabold text-slate-900">@Model.TodayAppointments <span class="text-sm font-medium text-slate-400">نوبت</span></h3>
             <div class="w-full bg-slate-100 h-1.5 mt-4 rounded-full overflow-hidden">
-                <div class="bg-green-500 h-full" style="width: 75%"></div>
+                <div class="bg-green-500 h-full" style="width: 65%"></div>
             </div>
         </div>
 
-        <!-- KPI Card 3 -->
-        <div class="card p-6 shadow-sm border-slate-100">
-            <div class="flex items-center gap-3 mb-4">
-                <div class="p-2 bg-purple-50 text-purple-600 rounded-lg">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path></svg>
-                </div>
-                <span class="text-xs font-bold text-slate-400">درصد نفوذ بازار</span>
-            </div>
-            <div class="flex items-center gap-2">
-                <h3 class="text-2xl font-extrabold text-slate-900">۱۲.۵٪</h3>
-                <span class="text-xs bg-purple-100 text-purple-700 px-2 py-0.5 rounded-full">بالاتر از میانگین</span>
-            </div>
-            <p class="text-xs text-slate-400 mt-4">بر پایه ۱۲۰۰ پزشک فعال</p>
-        </div>
-
-        <!-- KPI Card 4 -->
+        <!-- KPI Card 4: Specialization Distribution -->
         <div class="card p-6 shadow-sm border-slate-100">
             <div class="flex items-center gap-3 mb-4">
                 <div class="p-2 bg-orange-50 text-orange-600 rounded-lg">
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M11 3.055A9.001 9.001 0 1020.945 13H11V3.055z"></path><path d="M20.488 9H15V3.512A9.025 9.003 0 0120.488 9z"></path></svg>
                 </div>
-                <span class="text-xs font-bold text-slate-400">توزیع تخصصی</span>
+                <span class="text-xs font-bold text-slate-400">توزیع پزشکان</span>
             </div>
             <div class="space-y-2 mt-2">
-                <div class="flex justify-between text-[10px] font-bold">
-                    <span>عمومی</span>
-                    <span>۴۵٪</span>
-                </div>
-                <div class="w-full bg-slate-100 h-1 rounded-full"><div class="bg-blue-500 h-full" style="width: 45%"></div></div>
-                <div class="flex justify-between text-[10px] font-bold">
-                    <span>متخصص</span>
-                    <span>۳۰٪</span>
-                </div>
-                <div class="w-full bg-slate-100 h-1 rounded-full"><div class="bg-purple-500 h-full" style="width: 30%"></div></div>
+                @foreach (var stat in Model.SpecialtyDistribution.Take(2))
+                {
+                    <div class="flex justify-between text-[10px] font-bold">
+                        <span>@stat.Name</span>
+                        <span>@stat.Count</span>
+                    </div>
+                    <div class="w-full bg-slate-100 h-1 rounded-full"><div class="bg-blue-500 h-full" style="width: @(stat.Count * 10)%"></div></div>
+                }
             </div>
         </div>
     </div>
 
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
+        <!-- Audit Trail Table -->
+        <div class="card p-8 shadow-lg">
+            <h2 class="text-lg font-bold mb-6 flex items-center gap-2">
+                <div class="w-2 h-6 bg-red-500 rounded-full"></div>
+                Medical Audit Trail (Live)
+            </h2>
+            <div class="overflow-x-auto">
+                <table class="w-full text-right text-sm">
+                    <thead>
+                        <tr class="text-slate-400 border-b border-slate-100">
+                            <th class="pb-4 font-bold">زمان</th>
+                            <th class="pb-4 font-bold">عملیات</th>
+                            <th class="pb-4 font-bold">موجودیت</th>
+                            <th class="pb-4 font-bold">وضعیت</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-slate-50">
+                        @foreach (var log in Model.RecentAudits)
+                        {
+                            <tr>
+                                <td class="py-4 text-xs font-mono text-slate-500">@log.Timestamp.ToString("HH:mm:ss")</td>
+                                <td class="py-4 font-bold">@log.Action</td>
+                                <td class="py-4">@log.EntityName (@log.EntityId)</td>
+                                <td class="py-4">
+                                    <span class="px-2 py-0.5 bg-blue-50 text-blue-600 rounded-full text-[10px] font-bold">Verifying...</span>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Charts Mockup Area -->
         <div class="card p-8 shadow-lg">
             <h2 class="text-lg font-bold mb-8 flex items-center gap-2">
                 <div class="w-2 h-6 bg-primary-blue rounded-full"></div>
-                نمودار حجم تراکنش‌های کارمزد
+                توزیع رزروها بر اساس تخصص
             </h2>
-            <canvas id="commissionChart" style="height: 350px;"></canvas>
-        </div>
-        <div class="card p-8 shadow-lg">
-            <h2 class="text-lg font-bold mb-8 flex items-center gap-2">
-                <div class="w-2 h-6 bg-purple-500 rounded-full"></div>
-                تراکم رزروها در ساعات شبانه‌روز
-            </h2>
-            <div class="flex items-end justify-between gap-2 h-64 mt-12">
-                <div class="bg-slate-100 w-full rounded-t-lg hover:bg-primary-blue transition duration-300" style="height: 20%"></div>
-                <div class="bg-slate-100 w-full rounded-t-lg hover:bg-primary-blue transition duration-300" style="height: 45%"></div>
-                <div class="bg-slate-200 w-full rounded-t-lg hover:bg-primary-blue transition duration-300" style="height: 80%"></div>
-                <div class="bg-primary-blue w-full rounded-t-lg" style="height: 100%"></div>
-                <div class="bg-slate-200 w-full rounded-t-lg hover:bg-primary-blue transition duration-300" style="height: 60%"></div>
-                <div class="bg-slate-100 w-full rounded-t-lg hover:bg-primary-blue transition duration-300" style="height: 30%"></div>
-            </div>
-            <div class="flex justify-between text-[10px] text-slate-400 mt-4 px-2">
-                <span>۰۸:۰۰</span>
-                <span>۱۲:۰۰</span>
-                <span>۱۶:۰۰</span>
-                <span>۲۰:۰۰</span>
+            <div class="flex items-center justify-center h-64">
+                <canvas id="specialtyChart"></canvas>
             </div>
         </div>
     </div>
 </div>
+
+<script src="~/lib/chart.min.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const ctx = document.getElementById('specialtyChart').getContext('2d');
+        new Chart(ctx, {
+            type: 'doughnut',
+            data: {
+                labels: @Html.Raw(Json.Serialize(Model.SpecialtyDistribution.Select(s => s.Name))),
+                datasets: [{
+                    data: @Html.Raw(Json.Serialize(Model.SpecialtyDistribution.Select(s => s.Count))),
+                    backgroundColor: ['#3b82f6', '#8b5cf6', '#f59e0b', '#10b981', '#ef4444'],
+                    borderWidth: 0
+                }]
+            },
+            options: {
+                cutout: '70%',
+                plugins: {
+                    legend: { position: 'bottom', labels: { font: { family: 'Vazirmatn' } } }
+                }
+            }
+        });
+    });
+</script>
