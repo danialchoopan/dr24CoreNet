@@ -1,90 +1,46 @@
 @page
 @model dr24CoreNet.WebUI.Pages.Patient.HistoryModel
 @{
-    ViewData["Title"] = "تاریخچه پزشکی دیجیتال";
+    string lang = Request.Query["lang"].ToString() == "en" ? "en" : "fa";
+    ViewData["Title"] = Loc.Get("PatientHistory", lang);
 }
 
-<div class="main-content" style="margin-right: 0;">
-    <div class="max-w-5xl mx-auto">
+<div class="max-w-5xl mx-auto">
+    <div class="bg-white p-8 rounded-2xl shadow-sm border border-slate-100 mb-8 dark:bg-slate-800 dark:border-slate-700">
         <div class="flex justify-between items-center mb-8">
-            <div>
-                <h1 class="text-2xl font-bold text-slate-900">پرونده سلامت دیجیتال</h1>
-                <p class="text-sm text-slate-500">مشاهده سوابق ویزیت‌ها، نسخه‌ها و فایل‌های پیوست</p>
-            </div>
-            <div class="flex gap-3">
-                <div class="card px-4 py-2 flex items-center gap-3">
-                    <div class="w-2 h-2 rounded-full bg-green-500 animate-pulse"></div>
-                    <span class="text-xs font-bold text-slate-700">وضعیت پرونده: تکمیل شده</span>
-                </div>
-            </div>
+            <h1 class="text-2xl font-black text-slate-900 dark:text-white">@Loc.Get("PatientHistory", lang)</h1>
+            <button class="btn-primary px-6 py-2 rounded-lg text-sm">دریافت کل پرونده (PDF)</button>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <!-- Timeline -->
-            <div class="md:col-span-2 space-y-8 relative">
-                <div class="absolute right-4 top-0 bottom-0 w-0.5 bg-slate-100"></div>
-
-                @foreach(var item in new[] {
-                    new { Date = "۱۵ مهر ۱۴۰۲", Doctor = "دکتر امیرعلی علوی", Type = "ویزیت حضوری", Note = "وضعیت فشار خون کنترل شده است. دوز دارو تعدیل شد.", Status = "نهایی" },
-                    new { Date = "۱۲ مرداد ۱۴۰۲", Doctor = "دکتر مریم رضایی", Type = "مشاوره آنلاین", Note = "درد در ناحیه پشت سر. احتمال میگرن عصبی.", Status = "بایگانی" }
-                })
-                {
-                    <div class="relative pr-12">
-                        <div class="absolute right-3 top-1 w-3 h-3 rounded-full bg-blue-600 border-4 border-white shadow-sm"></div>
-                        <div class="card p-6">
-                            <div class="flex justify-between items-start mb-4">
-                                <div>
-                                    <span class="text-[10px] font-bold text-blue-600 uppercase">@item.Date</span>
-                                    <h3 class="font-bold text-slate-900 mt-1">@item.Doctor</h3>
-                                    <p class="text-xs text-slate-500">@item.Type</p>
-                                </div>
-                                <span class="badge badge-success">@item.Status</span>
-                            </div>
-                            <p class="text-sm text-slate-700 leading-relaxed bg-slate-50 p-3 rounded-lg">@item.Note</p>
-
-                            <div class="mt-4 pt-4 border-t border-slate-100 flex gap-4">
-                                <button class="text-xs font-bold text-blue-600 flex items-center gap-1">
-                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
-                                    مشاهده نسخه (PDF)
-                                </button>
-                                <button class="text-xs font-bold text-slate-400 flex items-center gap-1">
-                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M15.172 7l-6.586 6.586a2 2 0 102.828 2.828l6.414-6.586a4 4 0 00-5.656-5.656l-6.415 6.585a6 6 0 108.486 8.486L20.5 13"></path></svg>
-                                    فایل‌های پیوست
-                                </button>
-                            </div>
+        <div class="space-y-8">
+            <div class="relative @(lang == "fa" ? "pr-8 border-r-2" : "pl-8 border-l-2") border-blue-100 dark:border-slate-700">
+                <div class="absolute w-4 h-4 bg-blue-600 rounded-full top-0 @(lang == "fa" ? "-right-[9px]" : "-left-[9px]") border-4 border-white dark:border-slate-800"></div>
+                <div class="mb-2 flex items-center gap-2">
+                    <span class="text-sm font-bold text-blue-600">@Loc.Get("Saturday", lang)، @Loc.Get("October25", lang)</span>
+                    <span class="px-2 py-1 bg-green-50 text-green-600 rounded text-[10px] font-bold dark:bg-green-900/20">تکمیل شده</span>
+                </div>
+                <h3 class="text-lg font-black text-slate-900 dark:text-white mb-4">ویزیت قلب و عروق - دکتر علی احمدی</h3>
+                <div class="bg-slate-50 p-6 rounded-xl dark:bg-slate-900/50">
+                    <h4 class="text-xs font-bold text-slate-400 mb-4 uppercase tracking-wider">نسخه الکترونیک</h4>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div class="p-3 bg-white border border-slate-100 rounded-lg dark:bg-slate-800 dark:border-slate-700">
+                            <div class="font-bold text-sm dark:text-slate-300">قرص آتورواستاتین ۲۰</div>
+                            <div class="text-[10px] text-slate-400">روزانه یک عدد - شب‌ها</div>
+                        </div>
+                        <div class="p-3 bg-white border border-slate-100 rounded-lg dark:bg-slate-800 dark:border-slate-700">
+                            <div class="font-bold text-sm dark:text-slate-300">کپسول امگا ۳</div>
+                            <div class="text-[10px] text-slate-400">یک روز در میان</div>
                         </div>
                     </div>
-                }
+                </div>
             </div>
 
-            <!-- Profile Summary -->
-            <div class="space-y-6">
-                <div class="card p-6 text-center">
-                    <div class="w-24 h-24 bg-slate-100 rounded-full mx-auto mb-4 flex items-center justify-center text-4xl font-bold text-slate-300">
-                        م ک
-                    </div>
-                    <h2 class="font-bold text-lg">محمد کریمی</h2>
-                    <p class="text-xs text-slate-500 mb-6">کد ملی: ۰۰۱۲۳۴۵۶۷۸</p>
-
-                    <div class="grid grid-cols-2 gap-4 text-right">
-                        <div class="p-3 bg-slate-50 rounded-lg">
-                            <p class="text-[10px] text-slate-400 font-bold mb-1">گروه خونی</p>
-                            <p class="text-sm font-black text-red-600">A+</p>
-                        </div>
-                        <div class="p-3 bg-slate-50 rounded-lg">
-                            <p class="text-[10px] text-slate-400 font-bold mb-1">قد / وزن</p>
-                            <p class="text-sm font-black">۱۸۰ / ۷۵</p>
-                        </div>
-                    </div>
+            <div class="relative @(lang == "fa" ? "pr-8 border-r-2" : "pl-8 border-l-2") border-slate-100 dark:border-slate-700">
+                <div class="absolute w-4 h-4 bg-slate-300 rounded-full top-0 @(lang == "fa" ? "-right-[9px]" : "-left-[9px]") border-4 border-white dark:border-slate-800"></div>
+                <div class="mb-2 flex items-center gap-2">
+                    <span class="text-sm font-bold text-slate-400">۱۰ شهریور ۱۴۰۲</span>
                 </div>
-
-                <div class="card p-6">
-                    <h3 class="font-bold mb-4 text-sm">حساسیت‌های دارویی</h3>
-                    <div class="flex flex-wrap gap-2">
-                        <span class="px-2 py-1 bg-red-50 text-red-700 text-[10px] font-bold rounded border border-red-100">پنی‌سیلین</span>
-                        <span class="px-2 py-1 bg-red-50 text-red-700 text-[10px] font-bold rounded border border-red-100">آسپرین</span>
-                    </div>
-                </div>
+                <h3 class="text-lg font-black text-slate-700 dark:text-slate-400">آزمایش خون دوره ای - آزمایشگاه مرکز</h3>
             </div>
         </div>
     </div>
