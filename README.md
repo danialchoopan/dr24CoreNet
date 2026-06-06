@@ -43,9 +43,6 @@
 ![سیستم گفتگو](screenshots/chat_fa.png)
 
 ---
-
-## وابستگی‌های محلی (No CDN)
-تمامی فایل‌های استاتیک شامل CSS، JS و فونت‌های Vazirmatn به صورت محلی در پوشه `wwwroot` قرار دارند.
 # dr24CoreNet Medical Appointment Enterprise Platform
 
 dr24CoreNet is a comprehensive and advanced solution for online doctor appointment management, focusing on scalability, concurrency, and medical data security. The project is implemented using Clean Architecture and follows SOLID principles.
