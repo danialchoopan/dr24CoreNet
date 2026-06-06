@@ -22,7 +22,7 @@
 
 ## اسکرین‌شات‌های محیط برنامه (Operational Preview)
 
-در این بخش نمایی از سیستم در حالت عملیاتی با داده‌های واقعی (Seeded Data) و فونت وزیر (Vazirmatn) نمایش داده شده است.
+در این بخش نمایی از سیستم در حالت عملیاتی با داده‌های واقعی (Seeded Data)، آیکون‌های مدرن و فونت وزیر (Vazirmatn) نمایش داده شده است.
 
 ### ۱. نمای اصلی پلتفرم و جستجوی پیشرفته
 ![صفحه اصلی](screenshots/home_fa.png)
@@ -70,7 +70,7 @@ To prevent simultaneous booking of the same slot by two users, the system uses t
 
 ## Operational Preview Screenshots
 
-This section shows the system in operational mode with seeded data and the Vazirmatn font.
+This section shows the system in operational mode with seeded data, modern vector icons, and the Vazirmatn font.
 
 ### 1. Main Platform View & Advanced Search
 ![Home Page](screenshots/home_en.png)
